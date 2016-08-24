@@ -1,3 +1,5 @@
 # java-testing-handbook
 
-java のテストに関することを書くよ
+java に関する雑多なポエムです。
+
+気になることあれば、issues などでご指摘ください
