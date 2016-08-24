@@ -20,5 +20,5 @@ IntelliJ はプラグインで拡張可能ですが、以下のプラグイン�
 
 IntelliJ 単体では lombok に対応していません。lombok プラグインを導入したほうが良いです。
 
-(なお、IntelliJ 使っていて lombok 依存に入れているはずなのに lombok きかない時は大体の場合、Enable Annotation Processors の指定が外れています。有効にする方法はこちらご覧ください　https://www.jetbrains.com/help/idea/2016.2/configuring-annotation-processing.html 本当は gradle の idea プラグインで有効にしたいです)
+(なお、IntelliJ 使っていて lombok 依存に入れているはずなのに lombok きかない時は大体の場合、Enable Annotation Processors の指定が外れています。有効にする方法はこちらご覧ください　https://www.jetbrains.com/help/idea/2016.2/configuring-annotation-processing.html 本当は gradle の idea プラグインで有効にしたいところですが綺麗にやる方法がわかってないです)
 
