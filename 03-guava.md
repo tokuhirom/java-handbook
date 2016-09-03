@@ -15,7 +15,8 @@ List<Integer> bigList = ...
 List<List<Integer>> smallerLists = Lists.partition(bigList, 10);
 ```
 
-なお、Apache commons collections 4 でも同様のことができる。機能に差はないので、すでに依存に入ってるほうを利用する、ぐらいの気持ちでいいと思います。
+なお、Apache commons collections 4 でも同様のことができます。
+機能に差はないので、すでに依存に入ってるほうを利用する、ぐらいの気持ちでいいと思います。
 
 ```
 List<Integer> bigList = ...
@@ -24,6 +25,19 @@ List<List<Integer>> smallerLists = ListUtils.partition(bigList, 10);
 
 ref. http://stackoverflow.com/questions/2895342/java-how-can-i-split-an-arraylist-in-multiple-small-arraylists
 
+## コンテナインスタンスの作成
+
+### `Sets.newHashSet("foo", "bar")`
+
+    HashSet<String> strings = Sets.newHashSet("foo", "bar");
+
+`Arrays.asList(a, b, c)` で List の構築が簡単にできますけれど、Set の構築が簡単にできるメソッドが Java 8 の時点では存在していません。
+そこで、Set の構築には guava の便利メソッドを利用するのが一般的です。
+HashSet のインスタンスを作成します。標準ライブラリには相当するものが無いので、 guava を利用すると便利です。
+
+JDK9 では `Set.of` でできるようになります。
+
+ref. http://jyukutyo.hatenablog.com/entry/2016/01/04/182402
 
 ## apache commons と guava
 
