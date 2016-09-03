@@ -51,4 +51,5 @@ dependencies {
     testCompile(group: 'org.springframework.boot', name: 'spring-boot-starter-test') {
         exclude(module: 'commons-logging')
     }
+    testCompile 'org.mockito:mockito-all:1.10.19'
 }
