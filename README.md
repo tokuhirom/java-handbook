@@ -13,4 +13,6 @@ src/ 以下がサンプルコード。build.gradle がサンプルコードの�
 
  * jackson のこと
    * static class
-   
+ * mockito
+   * argumentcaptor
+   * doReturn
