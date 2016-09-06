@@ -16,7 +16,7 @@ public class MockitoDoReturnTest {
         Gah mock = mock(Gah.class);
 
         doThrow(IllegalArgumentException.class).when(mock).bar();
-        
+
         assertThatThrownBy(mock::bar)
                 .isInstanceOf(IllegalArgumentException.class);
     }

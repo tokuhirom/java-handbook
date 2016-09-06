@@ -184,6 +184,37 @@ InjtelliJ で　Mockito 使う場合にはマジでお勧めなので利用し�
 
 ## FAQ
 
+### when でいちいち引数の値を指定する必要あるの？
+
+メソッドがちゃんと呼ばれたかどうかのチェックには `verify` を利用すべきです。
+when の引数は基本的には any を指定し、複数の引数パターンで挙動を変えたい時のみ、any 以外を指定すべきです。
+
+例えば以下のようなシンプルなケースでは、以下のように書くべきではありません。
+
+    // 引数を明示的に指定しないほうが良い。
+    when(foo.bar("hoge")).thenReturn(3);
+    
+    asserThat(foo.bar("hoge")).isEqualTo(3);
+
+以下のように any を指定したほうが良いでしょう。
+
+    // anyString() を利用すると良い
+    when(foo.bar(anyString())).thenReturn(3);
+    
+    asserThat(foo.bar("hoge")).isEqualTo(3);
+
+このように習慣づけていないと、「`when()` で設定した値が返ってこないぞ！なんでだ？？」と悩む時間が増えがちです。
+
+同一のメソッドが複数回呼ばれる場合で、それぞれ挙動を変えたい場合のみ、引数を明示しましょう。
+
+例:
+
+    when(foo.bar("hoge")).thenReturn(3);
+    when(foo.bar("fuga")).thenReturn(5);
+    
+    asserThat(foo.bar("hoge")).isEqualTo(3);
+    asserThat(foo.bar("fuga")).isEqualTo(5);
+
 ### 返り値が void なメソッドを `when` で書き換えたいのですが
 
 doThrow 等利用すれば可能です。上記参照のこと。
