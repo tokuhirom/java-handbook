@@ -97,8 +97,12 @@ mockito により発生する NullPointerException は発見が困難なので�
 
 ## spy からの verify
 
-`spy()` メソッドにオブジェクトを渡すと、スパイにラッピングされたオブジェクトを得ることができる。
-`verify()` メソッドで、メソッドが呼ばれたかどうかを事後確認できる。
+`spy()` メソッドにオブジェクトを渡すと、スパイにラッピングされたオブジェクトを得ることができます。
+もともとある普通のオブジェクトに対して、カウント用の Proxy をかぶせている感じです。
+
+`verify()` メソッドで、メソッドが呼ばれたかどうかを事後確認できます。
+
+`verify()`　メソッドは `mock()` で作成されたオブジェクトでも利用できます。 
 
     // Dog クラスをspyにする
     ArrayList<String> list = Mockito.spy(new ArrayList<>());
@@ -108,6 +112,28 @@ mockito により発生する NullPointerException は発見が困難なので�
 
     // そのメソッドが実際に呼ばれたかどうかを確認する
     verify(list).add("hoge");
+
+## 返り値が void なメソッドの挙動を設定する
+
+返り値が void なメソッドは `when(mock.callMethod()).thenReturn()` 形式で挙動を設定することはできません。
+`when()` の引数として void なメソッドは設定できませんからね。。
+
+そういう時の回避策として `doThrow()` 等のメソッドが用意されています。
+`when()` 利用する場合、void の場合だけこの記法使わざるを得ず、複数の記法が混在するのがイヤでこちらの記法をメインで利用している方もいるようです。
+
+    Gah mock = mock(Gah.class);
+
+    doThrow(IllegalArgumentException.class).when(mock).bar();
+
+    assertThatThrownBy(mock::bar)
+            .isInstanceOf(IllegalArgumentException.class);
+
+同系統のメソッドとして他にも以下のメソッドが利用できます。
+
+ * doCallRealMethod
+ * doAnswer
+ * doNothing
+ * doReturn
 
 ## アノテーションを利用してやる
 
