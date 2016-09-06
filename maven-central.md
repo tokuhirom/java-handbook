@@ -7,13 +7,15 @@ maven central というのが事実上の標準となっている、ライブラ
 弊社では、nexus enterprise を運用して、maven central の repository の内容をミラーしています。
 (社内用のライブラリもそこにアップされています)
 
-maven central は不安定だったり、誰かが急に古いバージョン消したりするかもしれないので、各社ミラーを作るのが普通とのことです。
+maven central は不安定だったり、誰かが急に古いバージョン消したりするかもしれないので、Java 対応企業は各社それぞれ、社内ミラーを作るのが普通とのことです。
 
 ## search.maven.org
 
 http://search.maven.org/
 
 基本的にはここが一番基本となる検索サイトです。得に使いやすくはありませんが、まあ普通です。
+
+API もあります。
 
 ## mvnrepository
 
