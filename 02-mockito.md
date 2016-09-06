@@ -186,7 +186,7 @@ InjtelliJ で　Mockito 使う場合にはマジでお勧めなので利用し�
 
 ### 返り値が void なメソッドを `when` で書き換えたいのですが
 
-doReturn とかでできるけど TBD
+doThrow 等利用すれば可能です。上記参照のこと。
 
 ### static メソッドを置き換えたいのですが
 
