@@ -1,6 +1,7 @@
 # java-testing-handbook
 
 java に関する雑多なポエムです。
+Java を始めたての頃にこういう情報を教えてくれる人がいれば助かったのにな、というのを書いてみました。
 
 気になることあれば、issues などでご指摘ください
 
@@ -10,6 +11,7 @@ src/ 以下がサンプルコード。build.gradle がサンプルコードの�
 
 ## 目次
 
+ * [gradle](https://github.com/tokuhirom/java-handbook/blob/master/gradle.md) - ビルドツール
  * Testing
    * [mockito](https://github.com/tokuhirom/java-handbook/blob/master/testing/mockito.md) - モッキング
    * [mockwebserver](https://github.com/tokuhirom/java-handbook/blob/master/testing/mockwebserver.md) - シンプルなモック HTTP サーバー
@@ -20,4 +22,3 @@ src/ 以下がサンプルコード。build.gradle がサンプルコードの�
    * static class
  * mockito
    * argumentcaptor
-   * doReturn
