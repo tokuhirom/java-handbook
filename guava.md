@@ -39,6 +39,25 @@ JDK9 では `Set.of` でできるようになります。
 
 ref. http://jyukutyo.hatenablog.com/entry/2016/01/04/182402
 
+## オンメモリキャッシュ
+
+guava のオンメモリキャッシュ機構は良く出来ているので利用すると良いでしょう。
+使い方は以下の通り。
+
+    LoadingCache<Key, Graph> graphs = CacheBuilder.newBuilder()
+           .maximumSize(1000)
+           .expireAfterWrite(10, TimeUnit.MINUTES)
+           .removalListener(MY_LISTENER)
+           .build(
+               new CacheLoader<Key, Graph>() {
+                 public Graph load(Key key) throws AnyException {
+                   return createExpensiveGraph(key);
+                 }
+               });
+
+Web アプリケーションの場合、JVM のオンメモリにあまりたくさんのデータを入れると GC 対象が増えてしまって GC にかかるコストが増大するので節度を持ってキャッシュすることが必要です。
+得に、スケールアウトする構成になっている場合には、redis 等で共有キャッシュを持つことも考慮に入れるべきでしょう。
+
 ## apache commons と guava
 
 両方とも言語コアの機能の足りないところを補うことを目標に開発されたライブラリなので機能がわりとかぶっています。

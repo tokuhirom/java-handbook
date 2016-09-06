@@ -12,6 +12,7 @@ src/ 以下がサンプルコード。build.gradle がサンプルコードの�
 ## 目次
 
  * [gradle](https://github.com/tokuhirom/java-handbook/blob/master/gradle.md) - ビルドツール
+ * [guava](https://github.com/tokuhirom/java-handbook/blob/master/guava.md) - コンテナユーティリティー、オンメモリキャッシュ
  * Testing
    * [mockito](https://github.com/tokuhirom/java-handbook/blob/master/testing/mockito.md) - モッキング
    * [mockwebserver](https://github.com/tokuhirom/java-handbook/blob/master/testing/mockwebserver.md) - シンプルなモック HTTP サーバー
