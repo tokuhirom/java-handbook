@@ -39,8 +39,8 @@ lombok を利用すれば、アノテーションを付与するだけで getter
          private static final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(LogExample.class);
      }
 
-ロガークラスの生成は、そのクラスの名前そのものが必要であり、コピペに失敗すると関係ないクラスでロギングされたかのようになるし、避けたい。
-これは自動生成するのが一番です。
+ロガークラスの生成は、そのクラスの名前そのものが必要であり、コピペに失敗すると関係ないクラスでロギングされたかのようになってしまいます。
+lombok.Slf4j を利用すればそのようなリスクも避けられます。
 
 ### @Value
 
