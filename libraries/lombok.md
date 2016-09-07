@@ -145,7 +145,7 @@ Immutable なクラスを作成したい時に便利です。通常は @Value �
 ### @Builder
 
 @Builder は、ビルダークラスを自動的に生成してくれます。
-fluent にインスタンスを生成できて一見便利なのですが、@AllArgsConstructor あるいは @RequiredArgsConstructor を利用したほうが、必要なフィールドを指定し忘れる危険がなくて良いです。
+fluent interface でインスタンスを生成できて一見便利なのですが、@AllArgsConstructor あるいは @RequiredArgsConstructor を利用したほうが、必要なフィールドを指定し忘れる危険がなくて良いです。
 @Builder を利用した場合、後からフィールド追加するとフィールド未指定になる危険性があります。@AllArgsConstrucotr の場合にはコンパイルエラーになるので検出が容易です。
 
 @AllArgsConstructor の場合には、どの引数がなにに当たるのかわかりづらいな、というのはもっともなのですが、IntelliJ では `Cmd+P`　を押すとどの引数がどれにあたるのか表示されるので意外と困りません。 
