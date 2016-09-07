@@ -30,3 +30,5 @@ src/ 以下がサンプルコード。build.gradle がサンプルコードの�
    * static class
  * mockito
    * argumentcaptor
+ * mybatis
+   * mybatis + lombok.Value って動くんだっけ？
