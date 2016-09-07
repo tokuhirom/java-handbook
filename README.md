@@ -15,10 +15,10 @@ src/ 以下がサンプルコード。build.gradle がサンプルコードの�
  * [maven central](https://github.com/tokuhirom/java-handbook/blob/master/maven-central.md) - ビルドツール
  * [gradle](https://github.com/tokuhirom/java-handbook/blob/master/gradle.md) - ビルドツール
  * Libraries
-   * [guava](https://github.com/tokuhirom/java-handbook/blob/master/guava.md) - コンテナユーティリティー、オンメモリキャッシュ
-   * [retrofit](https://github.com/tokuhirom/java-handbook/blob/master/retrofit.md) - 宣言的な HTTP Client
+   * [guava](https://github.com/tokuhirom/java-handbook/blob/master/libraries/guava.md) - コンテナユーティリティー、オンメモリキャッシュ
+   * [retrofit](https://github.com/tokuhirom/java-handbook/blob/master/libraries/retrofit.md) - 宣言的な HTTP Client
+   * [lombok](https://github.com/tokuhirom/java-handbook/blob/master/libraries/lombok.md) - ボイラープレートコードの生成
    * logback - TBD
-   * lombok - TBD
    * slf4j - TBD
  * Testing
    * [mockito](https://github.com/tokuhirom/java-handbook/blob/master/testing/mockito.md) - モッキング
