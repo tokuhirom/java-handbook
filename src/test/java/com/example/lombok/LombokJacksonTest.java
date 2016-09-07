@@ -5,7 +5,6 @@ import com.fasterxml.jackson.databind.BeanDescription;
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.introspect.BeanPropertyDefinition;
-import lombok.AllArgsConstructor;
 import lombok.Value;
 import org.junit.Test;
 
@@ -14,7 +13,6 @@ import java.util.List;
 
 public class LombokJacksonTest {
     @Value
-    @AllArgsConstructor
     public static class Foo {
         @JsonProperty("foo_id")
         private final String fooId;

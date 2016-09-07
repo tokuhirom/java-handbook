@@ -41,7 +41,7 @@ dependencies {
     compile "com.google.guava:guava:19.0"
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-jdbc'
-    compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.16.8'
+    compile group: 'org.projectlombok', name: 'lombok', version: '1.16.8'
     runtime group: 'com.h2database', name: 'h2', version: '1.4.192'
     compile 'org.mybatis:mybatis:3.4.1'
     compile("org.mybatis.spring.boot:mybatis-spring-boot-starter:1.1.1")
