@@ -41,6 +41,14 @@ build.gradle がメインの設定ファイルであり、settings.gradle はサ
 
 自分も過去に試したことがありますが、そのような理由から中止しました
 
+## 便利なプラグイン
+
+### gradle-versions-plugin
+
+https://github.com/ben-manes/gradle-versions-plugin
+
+依存関係のうち、より新しいバージョンが存在しているライブラリを検出します。
+
 ## FAQ
 
 ### build.gradle を kotlin で書けるようになるって噂ですが？
