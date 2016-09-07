@@ -14,7 +14,12 @@ src/ 以下がサンプルコード。build.gradle がサンプルコードの�
  * [ant](https://github.com/tokuhirom/java-handbook/blob/master/ant.md) - XML で書く Makefile
  * [maven central](https://github.com/tokuhirom/java-handbook/blob/master/maven-central.md) - ビルドツール
  * [gradle](https://github.com/tokuhirom/java-handbook/blob/master/gradle.md) - ビルドツール
- * [guava](https://github.com/tokuhirom/java-handbook/blob/master/guava.md) - コンテナユーティリティー、オンメモリキャッシュ
+ * Libraries
+   * [guava](https://github.com/tokuhirom/java-handbook/blob/master/guava.md) - コンテナユーティリティー、オンメモリキャッシュ
+   * [retrofit](https://github.com/tokuhirom/java-handbook/blob/master/retrofit.md) - 宣言的な HTTP Client
+   * logback - TBD
+   * lombok - TBD
+   * slf4j - TBD
  * Testing
    * [mockito](https://github.com/tokuhirom/java-handbook/blob/master/testing/mockito.md) - モッキング
    * [mockwebserver](https://github.com/tokuhirom/java-handbook/blob/master/testing/mockwebserver.md) - シンプルなモック HTTP サーバー
