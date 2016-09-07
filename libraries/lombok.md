@@ -162,7 +162,7 @@ lombok plugin はとにかく必須プラグインなのでインストールし
 [![https://gyazo.com/da9dbd3cf601e6adf4b03ed207caf19e](https://i.gyazo.com/da9dbd3cf601e6adf4b03ed207caf19e.png)](https://gyazo.com/da9dbd3cf601e6adf4b03ed207caf19e)
 
 lombok は annotation processing という仕組みを利用して動作するのですが、IntelliJ はデフォルトでは annotation processing が無効に設定されています。
-うまく lombok が利用できない場合にはこちらの設定を確認する必要があります。
+lombok のアノテーションが効いていない場合は、ここを有効にしてください。
 
 ## lombok.config
 
