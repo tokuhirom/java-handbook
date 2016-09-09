@@ -18,8 +18,8 @@ src/ 以下がサンプルコード。build.gradle がサンプルコードの�
    * [guava](https://github.com/tokuhirom/java-handbook/blob/master/libraries/guava.md) - コンテナユーティリティー、オンメモリキャッシュ
    * [retrofit](https://github.com/tokuhirom/java-handbook/blob/master/libraries/retrofit.md) - 宣言的な HTTP Client
    * [lombok](https://github.com/tokuhirom/java-handbook/blob/master/libraries/lombok.md) - ボイラープレートコードの生成
+   * [slf4j](https://github.com/tokuhirom/java-handbook/blob/master/libraries/slf4j.md) - ロガー
    * logback - TBD
-   * slf4j - TBD
  * Testing
    * [mockito](https://github.com/tokuhirom/java-handbook/blob/master/testing/mockito.md) - モッキング
    * [mockwebserver](https://github.com/tokuhirom/java-handbook/blob/master/testing/mockwebserver.md) - シンプルなモック HTTP サーバー
