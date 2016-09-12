@@ -212,3 +212,13 @@ kotlin で記述した場合は以下の様になります。
 
 org.apache.ibatis.executor.statement.PreparedStatementHandler.update
 のへんから読んでくと良いです。
+
+### SQL 手で書くのめんどくない？
+
+めんどいけどマジカルな挙動に苦しめられることを考えれば気にならない。
+と僕は思ってます。
+
+### エンティティクラスを自動生成したい
+
+mybatis-generator を利用すればできます。
+得に理由はありませんが自分は利用していません。
