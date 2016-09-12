@@ -1,0 +1,147 @@
+# MyBatis - RDBMS 2 object mapper
+
+MyBatis は RDBMS の行をオブジェクトにマッピングするライブラリです。
+いわゆる O/R Mapper です。
+
+特徴としては
+
+ * すべての SQL を普通に文字列で書くことになるため、パフォーマンス上の問題が発生しづらい
+ * クエリの評価だけさっとやりやすい
+
+といったところでしょうか。ある程度規模があるサービスで、低品質なクエリが書かれた時のリカバリがし易いです。
+
+MyBatis は XML ファイルに SQL を書いていく方法とアノテーションでクエリを書く方法の２つの方法を選ぶことができます。
+XML で記述する場合、メソッドを呼ぶ Java コードからいっきにクエリを見ることができませんし XML で書く理由がないのでアノテーションで書く方法を本ポエムでは推していきます。
+
+弊社では現在 mybatis が一番利用されているようです。
+
+## アノテーションを利用してマッパーを書く
+
+アノテーションを利用してマッパーを記述します。
+interface を定義し、アノテーションを記述していきます。
+アノテーションを記述すると、MyBatis は java.lang.reflect.Proxy で実体化して処理してくれます。なので、interface だけ記述するだけで良いのです。
+
+(TODO: java.lang.reflect.Proxy について別のファイルに記述する)
+
+    interface BlogMapper {
+        @Insert("INSERT INTO blog (title) VALUES (#{title})")
+        @Options(useGeneratedKeys = true)
+        int insert(Blog blog);
+
+        @Update("UPDATE blog SET title=#{blog.title} WHERE id=#{id}")
+        long update(@Param("id") long id, @Param("blog") Blog blog);
+
+        @Update("DELETE blog WHERE id=#{id}")
+        long delete(long id);
+
+        @Select("SELECT COUNT(*) FROM blog")
+        long count();
+
+        @Select("SELECT * FROM blog")
+        List<Blog> findAll();
+    }
+
+INSERT, UPDATE, SELECT, DELETE それぞれにアノテーションが振られています。
+
+### INSERT の場合
+
+    @Insert("INSERT INTO blog (title) VALUES (#{title})")
+    @Options(useGeneratedKeys = true, keyProperty = "id")
+    int insert(Blog blog);
+
+`#{title}` というパラメータが SQL の中に埋まっています。これは `blog.getTitle()` の結果をここに埋めるという意味になります。引数１個のメソッドの場合は主語を省略して書けるという親切さです。
+
+以下のように、引数に blog という名前をつけることによって、その名前を利用して明示的に指定することもできます。
+
+    @Insert("INSERT INTO blog (title) VALUES (#{blog.title})")
+    @Options(useGeneratedKeys = true, keyProperty = "id")
+    int insert(@Param("blog") Blog blog);
+
+`@Options(useGeneratedKeys = true)` をつけた場合、auto_increment な値が entity に fill されます。擬似コードですが、以下の様なことが行われると思ってください。
+
+    blog.id = `SELECT LAST_INSERT_ID()`;
+
+返り値は affected rows です。JDBC で言うところの `ps.getUpdateCount()` の値です。
+
+### UPDATE の場合
+
+    @Update("UPDATE blog SET title=#{blog.title} WHERE id=#{id}")
+    long update(@Param("id") long id, @Param("blog") Blog blog);
+
+特筆すべき点はありませんね。普通です！
+
+返り値は affected rows です。
+
+### DELETE の場合
+
+    @Update("DELETE blog WHERE id=#{id}")
+    long delete(long id);
+
+UPDATE に同じです。
+
+### SELECT の場合
+
+        @Select("SELECT COUNT(*) FROM blog")
+        long count();
+
+↑のようなパターンの場合。これは返り値が long にマッピングされています。
+このパターンの場合 `COUNT(*)` の値が素直に返ってきます。
+
+        @Select("SELECT * FROM blog ORDER BY ${order}")
+        List<Blog> findAll(@Param("order") String order);
+
+のようにした場合、全行が Blog オブジェクトにマッピングされて返ってきます。
+
+ここで `${order}` という新しい記法が登場しています。`#{foo}` の場合 prepared statement の引数として渡されますが、`${order}` の場合はそのまま文字列として埋め込まれます。ORDER BY の引数に文字列を渡すことはできませんので `${order}` のようにして渡す必要があります。
+
+## MyBatis と cache と
+
+MyBatis には cache 機構があります。O/R Mapper の cache はかなり気をつけて利用しないと問題を引き起こしがちです。
+
+MyBatis のデフォルト設定は
+
+ * local cache オン
+ * cache 範囲は SESSION
+
+です。
+
+キャッシュ範囲はデフォルトで SESSSION であり、1 web session を超えて状態が保持されることは無いようになっています。
+ 
+また、@Update, @Delete, @Insert なメソッドの実行後にキャッシュクリア処理していますので、デフォルトのまま利用しても問題は無いでしょう。
+
+それでも誤爆が心配なら cache 範囲を STATEMENT にすれば、より安心でしょう。
+STATEMENT にした場合、SELECT 文を一回うつごとにキャッシュはクリアーされます。
+
+    configuration.setLocalCacheScope(LocalCacheScope.STATEMENT);
+
+なお、SELECT クエリで MyBatis の返却してきた値は cache されていますので、変更してはいけません。変更した場合、もう一度同じクエリを発行した場合に変更された値が返ってくる可能性があります。
+
+## MyBatis と kotlin と(あるいは Groovy と)
+
+MyBatis の Mapper を annotation を利用して記述した場合、問題になってくるのが「Javaには複数行文字列リテラルがない」という事実である。
+複雑なSQLともなると、１行にすべて書くのはキツイ。Indent をつけて書きたくなってくる。
+
+じゃー XML を使えばいいのでは？　ということにもなるのだが、XML は避けたい。
+
+そこで選択肢として出てくるのが alt java と呼ばれる言語郡である。
+
+現在、Better Java と呼ばれている言語には
+
+ * Scala
+ * groovy
+ * kotlin
+
+などがあり、これらはいずれも複数行文字列リテラルがある。
+
+これらの言語の中からチーム内でお好みのものを選ぶのが良い(scala がこの用途で利用可能かどうかは調べてないので知らない）。
+
+現実的には groovy か kotlin を選ぶのが良いと思う。いずれにせよ interface の記述のみなので、実効速度等にはどの言語を選んでも関係がない。
+
+現在やっているプロジェクトでは、kotlin のほうが将来性があると踏んで kotlin を採用している(2016年夏の時点)。若干、型の記述などで戸惑うこともあるが、ちょっとググればわかるし、チームメンバーにも好評なようだ。
+
+## FAQ
+
+### ID の生成まわりの実装について教えて下さい
+
+org.apache.ibatis.executor.statement.PreparedStatementHandler.update
+のへんから読んでくと良いです。

@@ -35,6 +35,10 @@ repositories {
     maven { url "http://repo.maven.apache.org/maven2" }
 }
 
+tasks.withType(JavaCompile) {
+    options.compilerArgs << "-Xlint:unchecked" << "-Xlint:deprecation" << '-parameters'
+}
+
 dependencies {
     apply plugin: 'spring-boot'
 

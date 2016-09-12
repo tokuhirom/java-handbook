@@ -23,6 +23,11 @@ src/ 以下がサンプルコード。build.gradle がサンプルコードの�
  * Testing
    * [mockito](https://github.com/tokuhirom/java-handbook/blob/master/testing/mockito.md) - モッキング
    * [mockwebserver](https://github.com/tokuhirom/java-handbook/blob/master/testing/mockwebserver.md) - シンプルなモック HTTP サーバー
+ * Metaprogramming
+   * reflection
+   * java.lang.reflection.Proxy
+   * Annotation Processing
+   * AOP
 
 ## 書きたいと思っていて書いてないこと
 
