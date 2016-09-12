@@ -15,6 +15,18 @@ XML で記述する場合、メソッドを呼ぶ Java コードからいっき�
 
 弊社では現在 mybatis が一番利用されているようです。
 
+## 例のエンティティ
+
+例として Blog クラスを実装します。MyBatis は @NoArgsConstructor の方をコールしますが、ユーザーが手でインスタンス化する時のために @AllArgsConstructor もつけています。
+
+    @Data
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class Blog {
+        Long id;
+        String title;
+    }
+
 ## アノテーションを利用してマッパーを書く
 
 アノテーションを利用してマッパーを記述します。
