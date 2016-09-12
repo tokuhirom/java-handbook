@@ -227,6 +227,16 @@ interface BlogDao {
 }
 ```
 
+## MyBatis と JSR 310 と
+
+Java ８ 以後で利用可能な LocalDate/LocalDateTime などの仕様が JSR 310 です。
+
+JSR 310 の新しい日時クラスにマッピングする機能が mybatis core には現状入っていません。typehandlers-jsr310 という別モジュールを依存に入れるとマッピング可能になります。最近のプロダクトの場合には Java 8 を利用することが多いでしょうから、入れておくのが良いでしょう。
+
+以下のように依存を入れておけばよいです。
+
+    compile 'org.mybatis:mybatis-typehandlers-jsr310:1.0.1'
+
 ## FAQ
 
 ### ID の生成まわりの実装について教えて下さい
