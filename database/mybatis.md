@@ -116,6 +116,39 @@ STATEMENT にした場合、SELECT 文を一回うつごとにキャッシュは
 
 なお、SELECT クエリで MyBatis の返却してきた値は cache されていますので、変更してはいけません。変更した場合、もう一度同じクエリを発行した場合に変更された値が返ってくる可能性があります。
 
+## interface から実装を得る
+
+interface から実装を得るには以下のような手順を踏んでいく必要があります。
+ステップ数は多いですが、通常はフレームワーク等で吸収される部分ですので気にする必要は殆ど無いでしょう。しかし、手で構築していく手順も把握しておく方が、理解が深まって良いと思います。
+
+    // 環境を構築
+    Environment environment = new Environment(
+        MybatisTest.class.getSimpleName(),
+        new JdbcTransactionFactory(),
+        jdbcDataSource);
+    
+    // 環境から設定を構築
+    Configuration configuration = new Configuration(environment);
+    // Mapper を登録していく
+    configuration.addMapper(BlogMapper.class);
+    
+    // SessionFactoryBuilder を作る
+    SqlSessionFactoryBuilder sqlSessionFactoryBuilder = new SqlSessionFactoryBuilder();
+    // SessionFactory を得る
+    SqlSessionFactory sqlSessionFactory = sqlSessionFactoryBuilder.build(configuration);
+    // Session 開始。closeable。
+    try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
+        // マッパーを取得
+        BlogMapper mapper = sqlSession.getMapper(BlogMapper.class);
+
+        // 全行取得してみる
+        {
+            List<Blog> all = mapper.findAll("id");
+            log.info("all: {}", all);
+        }
+    }
+
+
 ## MyBatis と kotlin と(あるいは Groovy と)
 
 MyBatis の Mapper を annotation を利用して記述した場合、問題になってくるのが「Javaには複数行文字列リテラルがない」という事実である。
@@ -138,6 +171,28 @@ MyBatis の Mapper を annotation を利用して記述した場合、問題に�
 現実的には groovy か kotlin を選ぶのが良いと思う。いずれにせよ interface の記述のみなので、実効速度等にはどの言語を選んでも関係がない。
 
 現在やっているプロジェクトでは、kotlin のほうが将来性があると踏んで kotlin を採用している(2016年夏の時点)。若干、型の記述などで戸惑うこともあるが、ちょっとググればわかるし、チームメンバーにも好評なようだ。
+
+kotlin で記述した場合は以下の様になります。
+
+    package com.example.dao
+    
+    import com.example.entity.Blog
+    import org.apache.ibatis.annotations.Mapper
+    import org.apache.ibatis.annotations.Param
+    import org.apache.ibatis.annotations.Select
+    
+    @Mapper
+    interface BlogDao {
+        @Select("""
+            SELECT * FROM blog
+        """)
+        fun findAll(): List<Blog>
+    
+        @Select("""
+            SELECT * FROM blog WHERE id=#{id}
+        """)
+        fun findById(@Param("id") id: Long): Blog
+    }
 
 ## FAQ
 

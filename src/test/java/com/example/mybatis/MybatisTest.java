@@ -57,8 +57,8 @@ public class MybatisTest {
         configuration.setLocalCacheScope(LocalCacheScope.STATEMENT);
         configuration.addMapper(BlogMapper.class);
         SqlSessionFactoryBuilder sqlSessionFactoryBuilder = new SqlSessionFactoryBuilder();
-        SqlSessionFactory defaultSqlSessionFactory = sqlSessionFactoryBuilder.build(configuration);
-        try (SqlSession sqlSession = defaultSqlSessionFactory.openSession()) {
+        SqlSessionFactory sqlSessionFactory = sqlSessionFactoryBuilder.build(configuration);
+        try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
             Connection connection = sqlSession.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(schema);
             preparedStatement.executeUpdate();
