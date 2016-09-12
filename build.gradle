@@ -56,6 +56,6 @@ dependencies {
         exclude(module: 'commons-logging')
     }
     testCompile 'org.mockito:mockito-all:1.10.19'
-
+    compile 'mysql:mysql-connector-java:6.0.4'
     testCompile 'org.assertj:assertj-core:2.4.1'
 }
