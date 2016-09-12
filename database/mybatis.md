@@ -19,13 +19,15 @@ XML で記述する場合、メソッドを呼ぶ Java コードからいっき�
 
 例として Blog クラスを実装します。MyBatis は @NoArgsConstructor の方をコールしますが、ユーザーが手でインスタンス化する時のために @AllArgsConstructor もつけています。
 
-    @Data
-    @AllArgsConstructor
-    @NoArgsConstructor
-    public static class Blog {
-        Long id;
-        String title;
-    }
+```java
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public static class Blog {
+    Long id;
+    String title;
+}
+```
 
 ## アノテーションを利用してマッパーを書く
 
@@ -34,51 +36,59 @@ interface を定義し、アノテーションを記述していきます。
 アノテーションを記述すると、MyBatis は java.lang.reflect.Proxy で実体化して処理してくれます。なので、interface だけ記述するだけで良いのです。
 
 (TODO: java.lang.reflect.Proxy について別のファイルに記述する)
+```java
+interface BlogMapper {
+    @Insert("INSERT INTO blog (title) VALUES (#{title})")
+    @Options(useGeneratedKeys = true)
+    int insert(Blog blog);
 
-    interface BlogMapper {
-        @Insert("INSERT INTO blog (title) VALUES (#{title})")
-        @Options(useGeneratedKeys = true)
-        int insert(Blog blog);
+    @Update("UPDATE blog SET title=#{blog.title} WHERE id=#{id}")
+    long update(@Param("id") long id, @Param("blog") Blog blog);
 
-        @Update("UPDATE blog SET title=#{blog.title} WHERE id=#{id}")
-        long update(@Param("id") long id, @Param("blog") Blog blog);
+    @Update("DELETE blog WHERE id=#{id}")
+    long delete(long id);
 
-        @Update("DELETE blog WHERE id=#{id}")
-        long delete(long id);
+    @Select("SELECT COUNT(*) FROM blog")
+    long count();
 
-        @Select("SELECT COUNT(*) FROM blog")
-        long count();
-
-        @Select("SELECT * FROM blog")
-        List<Blog> findAll();
-    }
-
+    @Select("SELECT * FROM blog")
+    List<Blog> findAll();
+}
+```
 INSERT, UPDATE, SELECT, DELETE それぞれにアノテーションが振られています。
 
 ### INSERT の場合
 
-    @Insert("INSERT INTO blog (title) VALUES (#{title})")
-    @Options(useGeneratedKeys = true, keyProperty = "id")
-    int insert(Blog blog);
+```java
+@Insert("INSERT INTO blog (title) VALUES (#{title})")
+@Options(useGeneratedKeys = true, keyProperty = "id")
+int insert(Blog blog);
+```
 
 `#{title}` というパラメータが SQL の中に埋まっています。これは `blog.getTitle()` の結果をここに埋めるという意味になります。引数１個のメソッドの場合は主語を省略して書けるという親切さです。
 
 以下のように、引数に blog という名前をつけることによって、その名前を利用して明示的に指定することもできます。
 
-    @Insert("INSERT INTO blog (title) VALUES (#{blog.title})")
-    @Options(useGeneratedKeys = true, keyProperty = "id")
-    int insert(@Param("blog") Blog blog);
+```java
+@Insert("INSERT INTO blog (title) VALUES (#{blog.title})")
+@Options(useGeneratedKeys = true, keyProperty = "id")
+int insert(@Param("blog") Blog blog);
+```
 
 `@Options(useGeneratedKeys = true)` をつけた場合、auto_increment な値が entity に fill されます。擬似コードですが、以下の様なことが行われると思ってください。
 
-    blog.id = `SELECT LAST_INSERT_ID()`;
+```java
+blog.id = `SELECT LAST_INSERT_ID()`;
+```
 
 返り値は affected rows です。JDBC で言うところの `ps.getUpdateCount()` の値です。
 
 ### UPDATE の場合
 
-    @Update("UPDATE blog SET title=#{blog.title} WHERE id=#{id}")
-    long update(@Param("id") long id, @Param("blog") Blog blog);
+```java
+@Update("UPDATE blog SET title=#{blog.title} WHERE id=#{id}")
+long update(@Param("id") long id, @Param("blog") Blog blog);
+```
 
 特筆すべき点はありませんね。普通です！
 
@@ -86,21 +96,27 @@ INSERT, UPDATE, SELECT, DELETE それぞれにアノテーションが振られ�
 
 ### DELETE の場合
 
-    @Update("DELETE blog WHERE id=#{id}")
-    long delete(long id);
+```java
+@Update("DELETE blog WHERE id=#{id}")
+long delete(long id);
+```
 
 UPDATE に同じです。
 
 ### SELECT の場合
 
-        @Select("SELECT COUNT(*) FROM blog")
-        long count();
+```java
+@Select("SELECT COUNT(*) FROM blog")
+long count();
+```
 
 ↑のようなパターンの場合。これは返り値が long にマッピングされています。
 このパターンの場合 `COUNT(*)` の値が素直に返ってきます。
 
-        @Select("SELECT * FROM blog ORDER BY ${order}")
-        List<Blog> findAll(@Param("order") String order);
+```java
+@Select("SELECT * FROM blog ORDER BY ${order}")
+List<Blog> findAll(@Param("order") String order);
+```
 
 のようにした場合、全行が Blog オブジェクトにマッピングされて返ってきます。
 
@@ -124,7 +140,9 @@ MyBatis のデフォルト設定は
 それでも誤爆が心配なら cache 範囲を STATEMENT にすれば、より安心でしょう。
 STATEMENT にした場合、SELECT 文を一回うつごとにキャッシュはクリアーされます。
 
-    configuration.setLocalCacheScope(LocalCacheScope.STATEMENT);
+```java
+configuration.setLocalCacheScope(LocalCacheScope.STATEMENT);
+```
 
 なお、SELECT クエリで MyBatis の返却してきた値は cache されていますので、変更してはいけません。変更した場合、もう一度同じクエリを発行した場合に変更された値が返ってくる可能性があります。
 
@@ -133,33 +151,34 @@ STATEMENT にした場合、SELECT 文を一回うつごとにキャッシュは
 interface から実装を得るには以下のような手順を踏んでいく必要があります。
 ステップ数は多いですが、通常はフレームワーク等で吸収される部分ですので気にする必要は殆ど無いでしょう。しかし、手で構築していく手順も把握しておく方が、理解が深まって良いと思います。
 
-    // 環境を構築
-    Environment environment = new Environment(
-        MybatisTest.class.getSimpleName(),
-        new JdbcTransactionFactory(),
-        jdbcDataSource);
-    
-    // 環境から設定を構築
-    Configuration configuration = new Configuration(environment);
-    // Mapper を登録していく
-    configuration.addMapper(BlogMapper.class);
-    
-    // SessionFactoryBuilder を作る
-    SqlSessionFactoryBuilder sqlSessionFactoryBuilder = new SqlSessionFactoryBuilder();
-    // SessionFactory を得る
-    SqlSessionFactory sqlSessionFactory = sqlSessionFactoryBuilder.build(configuration);
-    // Session 開始。closeable。
-    try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
-        // マッパーを取得
-        BlogMapper mapper = sqlSession.getMapper(BlogMapper.class);
+```java
+// 環境を構築
+Environment environment = new Environment(
+    MybatisTest.class.getSimpleName(),
+    new JdbcTransactionFactory(),
+    jdbcDataSource);
 
-        // 全行取得してみる
-        {
-            List<Blog> all = mapper.findAll("id");
-            log.info("all: {}", all);
-        }
+// 環境から設定を構築
+Configuration configuration = new Configuration(environment);
+// Mapper を登録していく
+configuration.addMapper(BlogMapper.class);
+
+// SessionFactoryBuilder を作る
+SqlSessionFactoryBuilder sqlSessionFactoryBuilder = new SqlSessionFactoryBuilder();
+// SessionFactory を得る
+SqlSessionFactory sqlSessionFactory = sqlSessionFactoryBuilder.build(configuration);
+// Session 開始。closeable。
+try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
+    // マッパーを取得
+    BlogMapper mapper = sqlSession.getMapper(BlogMapper.class);
+
+    // 全行取得してみる
+    {
+        List<Blog> all = mapper.findAll("id");
+        log.info("all: {}", all);
     }
-
+}
+```
 
 ## MyBatis と kotlin と(あるいは Groovy と)
 
@@ -186,25 +205,27 @@ MyBatis の Mapper を annotation を利用して記述した場合、問題に�
 
 kotlin で記述した場合は以下の様になります。
 
-    package com.example.dao
-    
-    import com.example.entity.Blog
-    import org.apache.ibatis.annotations.Mapper
-    import org.apache.ibatis.annotations.Param
-    import org.apache.ibatis.annotations.Select
-    
-    @Mapper
-    interface BlogDao {
-        @Select("""
-            SELECT * FROM blog
-        """)
-        fun findAll(): List<Blog>
-    
-        @Select("""
-            SELECT * FROM blog WHERE id=#{id}
-        """)
-        fun findById(@Param("id") id: Long): Blog
-    }
+```kotlin
+package com.example.dao
+
+import com.example.entity.Blog
+import org.apache.ibatis.annotations.Mapper
+import org.apache.ibatis.annotations.Param
+import org.apache.ibatis.annotations.Select
+
+@Mapper
+interface BlogDao {
+    @Select("""
+        SELECT * FROM blog
+    """)
+    fun findAll(): List<Blog>
+
+    @Select("""
+        SELECT * FROM blog WHERE id=#{id}
+    """)
+    fun findById(@Param("id") id: Long): Blog
+}
+```
 
 ## FAQ
 
