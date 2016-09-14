@@ -27,14 +27,14 @@ public class MybatisTest {
     }
 
     interface BlogMapper {
-        @Insert("INSERT INTO blog (title) VALUES (#{title})")
+        @Insert("INSERT INTO blog.blog (title) VALUES (#{title})")
         @Options(useGeneratedKeys = true)
         int insert(Blog blog);
 
-        @Update("UPDATE blog SET title=#{blog.title} WHERE id=#{id}")
+        @Update("UPDATE blog SET title=#{blog.title} WHERE blog_id=#{id} ORDER BY blog_id DESC")
         long update(@Param("id") long id, @Param("blog") Blog blog);
 
-        @Update("DELETE blog WHERE id=#{id}")
+        @Delete("DELETE blog WHERE id=#{id}")
         long delete(long id);
 
         @Select("SELECT COUNT(*) FROM blog")
@@ -42,6 +42,9 @@ public class MybatisTest {
 
         @Select("SELECT * FROM blog ORDER BY ${order}")
         List<Blog> findAll(@Param("order") String order);
+
+        @Select("SELECT * FROM blog WHERE blog_id=#{blog_id}")
+        Blog findById(@Param("blog_id") long blogId);
     }
 
     @Test

@@ -181,7 +181,10 @@ IntelliJ では [Mockito Code Generator](https://plugins.jetbrains.com/plugin/79
 あります。これを入れると、`Cmd+Shit+T` でテストケースを生成した後 `Cmd+Shift+M` 打つと、元のクラスを `@InjectMocks` に指定して
 存在しているフィールドすべてを `@Mock` 指定したソースコードを生成できます。
 
-InjtelliJ で　Mockito 使う場合にはマジでお勧めなので利用したほうがいいです。
+IntelliJ で　Mockito 使う場合にはマジでお勧めなので利用したほうがいいです。
+
+気になる方はデモ動画をアップしてあるので見てみると良いです。
+<iframe width="560" height="315" src="https://www.youtube.com/embed/djM0bB7zqcw" frameborder="0" allowfullscreen></iframe>
 
 ## FAQ
 
