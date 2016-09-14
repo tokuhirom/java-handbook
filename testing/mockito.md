@@ -254,7 +254,7 @@ mockito では mocking していない場合、`org.mockito.internal.stubbing.de
 JDK で提供されているコンテナ型の場合には空のコンテナ型が返りますのでいいのですが、通常のユーザーが作成したクラスの場合、null が返ります。
 これにより NullPointerException が発生してつらいです。
 
-SmartNullPointerException が発生した場合、以下のようなエラーメッセージが表示され、非常に問題が解決しやすくなります。
+SmartNullPointerException が発生した場合、以下のようなエラーメッセージが表示され、何が原因で NullPointerException が発生発生したのかが表示表示されるようになり、非常に問題が解決しやすくなります。
 
 ```
 org.mockito.exceptions.verification.SmartNullPointerException: 
@@ -308,3 +308,21 @@ public class MockitoConfiguration extends DefaultMockitoConfiguration {
 
 この設定はライフチェンジングなのでマジでお勧めです。
 
+## そもそも mock してないしてないものを Inject しようとした時は死んで欲しい
+
+DefaultMockitoConfiguration で、例外投げるやつを設定すればよいでしょう。
+↓↓ TODO:: 動作未確認
+
+```
+package org.mockito.configuration;
+
+import org.mockito.stubbing.Answer;
+
+// https://solidsoft.wordpress.com/2012/07/02/beyond-the-mockito-refcard-part-1-a-better-error-message-on-npe-with-globally-configured-smartnull/
+// See org.mockito.internal.configuration.ClassPathLoader
+public class MockitoConfiguration extends DefaultMockitoConfiguration {
+    public Answer<Object> getDefaultAnswer() {
+        return dat -> throw new  RuntimeExcepttion("NAIYO");
+    }
+}
+```
