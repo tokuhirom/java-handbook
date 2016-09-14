@@ -58,4 +58,7 @@ dependencies {
     testCompile 'org.mockito:mockito-all:1.10.19'
     compile 'mysql:mysql-connector-java:6.0.4'
     testCompile 'org.assertj:assertj-core:2.4.1'
+    
+    compile 'com.fasterxml.jackson.core:jackson-databind:2.5.3'
+    compile 'com.fasterxml.jackson.core:jackson-core:2.5.3'
 }
