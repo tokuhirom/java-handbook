@@ -38,7 +38,7 @@ LinkedList は、二重リンクリストの実装です。linked list につい
 Java に付属している java.util.List の実装は基本的にマルチスレッド対応していません。
 ほとんどの list はスレッド間で共有されることはないからです。スレッド間で共有されるという前提で実装すると、同期をとる必要が出てきてパフォーマンスが劣化します。
 
-とはいえCollection をマルチスレッドで共有したいシーンもあります。そういう場合には `Collections.syncrhonizedList()`　を利用します。synchronizedList で得られるリストは、mutex でロックがかかるので、スレッドセーフになります。
+とはいえCollection をマルチスレッドで共有したいシーンもあります。そういう場合には `Collections.syncrhonizedList()`　を利用します。synchronizedList で得られるリストはロックがかかるので、スレッドセーフになります。
 
 ```java
 List list = Collections.synchronizedList(new ArrayList(...));
