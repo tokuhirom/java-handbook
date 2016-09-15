@@ -14,12 +14,11 @@ Java の配列はサイズ変更が不可能ですので、一般的なアプリ
 
 初期化時に必要なぶんアロケートされます。配列のサイズを大きくする必要が出てきたらより大きな別の領域が確保されてそこに既存のデータはコピーされます。
 
- * `get` は高速です
- * `add(E)` は高速です
+以下のメソッドは若干遅いです。これらのメソッドを頻繁に利用する場合には LinkedList をかわりに使うことを考慮したほうがよいでしょう。
+
  * `add(index, element)` は低速です。配列の中で `index` 以後の要素をすべて後ろにコピーしてずらす必要があるからです。頻繁にこのメソッドを利用する場合は LinkedList の採用を検討してください。
  * `remove(index)` は低速です。`index` 以後の要素をすべて前にずらす必要があるからです。最後の要素を取り除くときは高速です。頻繁にこのメソッドを利用する場合は LinkedList の採用を検討してください。
  * `remove(Object o)` は低速です。上に同じ理由です。
- * `boolean addAll(Collection<? extends E> c)` は高速です。
 
 ### LinkedList
 
@@ -99,6 +98,8 @@ List<Integer> integers2 = Arrays.asList(integers1);
 ```java
 List<Integer> integers = Collections.singletonList(3);
 ```
+
+`max(List<Integer> integers);`  に対して `max(Collections.singletonList(3))` のように、リストを要求するメソッドの引数に1つの要素を渡したいときに使うことが多いです。
 
 このリストは 1 要素しか含められず変更不可能である代わりにアクセスが*高速*です。
 `Arrays.asList` を 1要素の配列に対して使っていると IntelliJ IDEA は `Collections.singletonList` に変えるようにサジェストします。
