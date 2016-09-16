@@ -38,21 +38,23 @@ LinkedList は、二重リンクリストの実装です。linked list につい
 
 実際の利用シーンの例です[org.springframework.boot.actuate.trace.InMemoryTraceRepository](https://github.com/spring-projects/spring-boot/blob/10012cfddc5479ee9a5cbe98bfe4f76483965bd1/spring-boot-actuator/src/main/java/org/springframework/boot/actuate/trace/InMemoryTraceRepository.java):
 
-        @Override
-        public List<AuditEvent> find(String principal, Date after, String type) {
-        	LinkedList<AuditEvent> events = new LinkedList<AuditEvent>();
-        	synchronized (this.monitor) {
-        		for (int i = 0; i < this.events.length; i++) {
-        			AuditEvent event = resolveTailEvent(i);
-        			if (event != null && isMatch(principal, after, type, event)) {
-        				events.addFirst(event);
-        			}
-        		}
-        	}
-        	return events;
-        }
+```java
+@Override
+public List<AuditEvent> find(String principal, Date after, String type) {
+	LinkedList<AuditEvent> events = new LinkedList<AuditEvent>();
+	synchronized (this.monitor) {
+		for (int i = 0; i < this.events.length; i++) {
+			AuditEvent event = resolveTailEvent(i);
+			if (event != null && isMatch(principal, after, type, event)) {
+				events.addFirst(event);
+			}
+		}
+	}
+	return events;
+}
+```
 
-## マルチスレッドと List
+## マルチスレッドと ListsynchronizedList
 
 Java に付属している java.util.List の実装は基本的にマルチスレッド対応していません。
 ほとんどの list はスレッド間で共有されることはないからです。スレッド間で共有されるという前提で実装すると、同期をとる必要が出てきてパフォーマンスが劣化します。
