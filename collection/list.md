@@ -210,6 +210,8 @@ public class BeansUIActivationHistory {
 
 とにかく変更されない List を作りたいぞ！という時には、Google guava には ImmutableList の実装がありますので、こちらを利用しましょう。変更できないのでマルチスレッドで共有しても安心です。
 
+なお、guava の ImmutableList は、null を入れようとすると NullPointerException が発生しますのでご注意ください。
+
 ```java
 // 空の immutable list を作成
 ImmutableList<Object> of = ImmutableList.of();

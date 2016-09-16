@@ -25,6 +25,12 @@ public class ImmutablesTest {
     }
 
     @Test
+    public void test2() {
+        // 空の immutable list を作成
+        ImmutableList<Object> of = ImmutableList.of(1, 2, null);
+    }
+
+    @Test
     public void java() {
         // 複数の要素からリストを作成。
         List<Integer> integers = Arrays.asList(1, 2, 3);
