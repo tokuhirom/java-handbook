@@ -25,9 +25,14 @@ LinkedList は、二重リンクリストの実装です。linked list につい
 
 ざっくり言うと ArrayList に比べて以下のようなメリットがあります。以下のメリットが必要な場合には LinkedList の採用を検討してください。
 
+<<<<<<< HEAD
  * List 先頭への要素追加が高速
  * List 末尾への要素追加が高速
  * List 先頭要素の削除が高速 
+=======
+ * List 先頭への要素追加が高速 
+ * 先頭要素の削除が高速 
+>>>>>>> benchmark
 
 このような要求がある場合も多いので、割りとよく使う実装です。
 
@@ -54,7 +59,99 @@ public List<AuditEvent> find(String principal, Date after, String type) {
 }
 ```
 
-## マルチスレッドと ListsynchronizedList
+実際にベンチマークとった結果がこちらになります:
+
+#### 先頭への要素追加
+
+LinkedList のほうが圧倒的に高速です。
+
+```java
+    @Test
+    public void addFirst() throws Exception {
+        Benchmark benchmark = new Benchmark(new AddFirstListBenchmark());
+        benchmark.run(1).timethese().cmpthese();
+    }
+
+    public class AddFirstListBenchmark {
+        @Benchmark.Bench
+        public void arrayList() {
+            List<Integer> l = new ArrayList<>();
+            for (int i = 0; i < 1_000_000; ++i) {
+                l.add(0, i);
+            }
+        }
+
+        @Benchmark.Bench
+        public void linkedList() {
+            LinkedList<Integer> l = new LinkedList<>();
+            for (int i = 0; i < 1_000_000; ++i) {
+                l.addFirst(i);
+            }
+        }
+    }
+```
+
+```
+Score:
+
+arrayList: 158 wallclock secs (138.92 usr +  2.05 sys = 140.97 CPU) @  0.01/s (n=1)
+linkedList:  0 wallclock secs ( 0.02 usr +  0.02 sys =  0.04 CPU) @ 24.03/s (n=1)
+
+Comparison chart:
+
+                Rate  arrayList  linkedList
+   arrayList  0.01/s         --       -100%
+  linkedList  24.0/s    338679%          --
+```
+
+#### 先頭要素の削除
+
+LinkedList のほうが圧倒的に高速です。
+
+```java
+@Test
+public void removeFirst() throws Exception {
+    Benchmark benchmark = new Benchmark(new RemoveFirstBenchmark());
+    benchmark.run(1).timethese().cmpthese();
+}
+
+public class RemoveFirstBenchmark {
+    List<Integer> ints = IntStream.rangeClosed(0, 1_000_000)
+            .mapToObj(i -> i)
+            .collect(Collectors.toList());
+
+    @Benchmark.Bench
+    public void arrayList() {
+        ArrayList<Integer> l = new ArrayList<>(ints);
+        while (!l.isEmpty()) {
+            l.remove(0);
+        }
+    }
+
+    @Benchmark.Bench
+    public void linkedList() {
+        LinkedList<Integer> l = new LinkedList<>(ints);
+        while (!l.isEmpty()) {
+            l.removeFirst();
+        }
+    }
+}
+```
+
+```
+Score:
+
+linkedList:  0 wallclock secs ( 0.03 usr +  0.00 sys =  0.03 CPU) @ 29.75/s (n=1)
+arrayList: 157 wallclock secs (141.42 usr +  2.41 sys = 143.83 CPU) @  0.01/s (n=1)
+
+Comparison chart:
+
+                Rate  linkedList  arrayList
+  linkedList  29.8/s          --    427866%
+   arrayList  0.01/s       -100%         --
+```
+
+## マルチスレッドと List
 
 Java に付属している java.util.List の実装は基本的にマルチスレッド対応していません。
 ほとんどの list はスレッド間で共有されることはないからです。スレッド間で共有されるという前提で実装すると、同期をとる必要が出てきてパフォーマンスが劣化します。
