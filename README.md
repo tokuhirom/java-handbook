@@ -38,3 +38,12 @@ src/ 以下がサンプルコード。build.gradle がサンプルコードの�
  * mockito
    * argumentcaptor
  * サロゲートペアの話題
+
+## THANKS TO
+
+以下の方々からレビューコメントを頂いて反映しています。
+
+ * @kmizu
+ * @gakuzzzz
+ * @hishidama
+
