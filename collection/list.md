@@ -16,9 +16,8 @@ Java の配列はサイズ変更が不可能ですので、一般的なアプリ
 
 以下のメソッドは若干遅いです。これらのメソッドを頻繁に利用する場合には LinkedList をかわりに使うことを考慮したほうがよいでしょう。
 
- * `add(index, element)` は低速です。配列の中で `index` 以後の要素をすべて後ろにコピーしてずらす必要があるからです。頻繁にこのメソッドを利用する場合は LinkedList の採用を検討してください。
- * `remove(index)` は低速です。`index` 以後の要素をすべて前にずらす必要があるからです。最後の要素を取り除くときは高速です。頻繁にこのメソッドを利用する場合は LinkedList の採用を検討してください。
- * `remove(Object o)` は低速です。上に同じ理由です。
+ * `add(0, element)` は低速です。配列の中で `index` 以後の要素をすべて後ろにコピーしてずらす必要があるからです。頻繁にこのメソッドを利用する場合は LinkedList の採用を検討してください。
+ * `remove(0)` は低速です。`index` 以後の要素をすべて前にずらす必要があるからです。頻繁にこのメソッドを利用する場合は LinkedList の採用を検討してください。
 
 ### LinkedList
 
@@ -26,35 +25,97 @@ LinkedList は、二重リンクリストの実装です。linked list につい
 
 ざっくり言うと ArrayList に比べて以下のようなメリットがあります。以下のメリットが必要な場合には LinkedList の採用を検討してください。
 
- * List 先頭への要素追加が高速 
- * List 末尾への要素追加が高速 
- * 要素の削除が高速 
+ * List 先頭への要素追加が高速
+ * List 末尾への要素追加が高速
+ * List 先頭要素の削除が高速 
 
 このような要求がある場合も多いので、割りとよく使う実装です。
 
 一方で、ArrayList に比べて以下のデメリットがあります。
 
  * メモリ使用量が多め
- * index アクセスが若干遅い
+ * index アクセスが遅い。つまり `get(100)` のようなアクセスの場合、linked list を 100 個たどらないと行けないので遅いです。
+
+実際の利用シーンの例です[org.springframework.boot.actuate.trace.InMemoryTraceRepository](https://github.com/spring-projects/spring-boot/blob/10012cfddc5479ee9a5cbe98bfe4f76483965bd1/spring-boot-actuator/src/main/java/org/springframework/boot/actuate/trace/InMemoryTraceRepository.java):
+
+        @Override
+        public List<AuditEvent> find(String principal, Date after, String type) {
+        	LinkedList<AuditEvent> events = new LinkedList<AuditEvent>();
+        	synchronized (this.monitor) {
+        		for (int i = 0; i < this.events.length; i++) {
+        			AuditEvent event = resolveTailEvent(i);
+        			if (event != null && isMatch(principal, after, type, event)) {
+        				events.addFirst(event);
+        			}
+        		}
+        	}
+        	return events;
+        }
 
 ## マルチスレッドと List
 
 Java に付属している java.util.List の実装は基本的にマルチスレッド対応していません。
 ほとんどの list はスレッド間で共有されることはないからです。スレッド間で共有されるという前提で実装すると、同期をとる必要が出てきてパフォーマンスが劣化します。
 
-とはいえCollection をマルチスレッドで共有したいシーンもあります。そういう場合には `Collections.syncrhonizedList()`　を利用します。synchronizedList で得られるリストはロックがかかるので、スレッドセーフになります。
+### `Collections.syncrhonizedList()`
+
+とはいえCollection をマルチスレッドで共有したいシーンもあります。そういう場合には `Collections.syncrhonizedList()`　を利用します。synchronizedList で得られるリストは操作ごとにロックをとるのでスレッドセーフになります。しかし、ロックを取る分遅いです。
 
 ```java
 List list = Collections.synchronizedList(new ArrayList(...));
 ```
 
-多くの場合は、マルチスレッドで共有される List は一度動き出してしまえば変更されることはありません。変更されない List であることが保証されていれば、値の取得時に同期を取らなくても良いので高速です。List から変更不可能な List を生成するメソッドとして `java.util.Collections.unmodifiableList` が提供されています。
+### CopyOnWriteArrayList
+
+破壊的操作(add, set 等)が行われるたびに内部で保持している配列のコピーを作ることによりスレッドセーフを実現している List の実装です。
+
+どう考えても効率が悪いですが、イテレータで全部を舐める回数が変更処理をする回数よりも圧倒的に多い場合には効率が良い場合があります。イテレータを同期できない場合や同期したくないが、並行スレッド感の干渉を排除したいときにも役立ちます。
+
+具体例としては [org.springframework.ide.eclipse.beans.ui.BeansUIActivationHistory](https://github.com/spring-projects/spring-ide/blob/7707ecd47d164f6c25400b4f8303a2009631bce7/plugins/org.springframework.ide.eclipse.beans.ui/src/org/springframework/ide/eclipse/beans/ui/BeansUIActivationHistory.java) があります。
+
 
 ```java
-List<Integer> integers = Collections.unmodifiableList(Arrays.asList(1, 2, 3))
+public class BeansUIActivationHistory {
+
+	private static List<String> HISTORY = new CopyOnWriteArrayList<String>();
+
+	public static void clearHistory() {
+		HISTORY = new CopyOnWriteArrayList<String>();
+	}
+
+	public static void addToHistory(IModelElement modelElement) {
+		if (modelElement != null && modelElement.getElementID() != null) {
+			HISTORY.add(modelElement.getElementID());
+		}
+	}
+	
+	public static Set<IModelElement> getActivationHistory() {
+		Set<IModelElement> history = new LinkedHashSet<IModelElement>();
+		for (String elementId : HISTORY) {
+			IModelElement element = BeansCorePlugin.getModel().getElement(elementId);
+			if (element != null) {
+				history.add(element);
+			}
+		}
+		return history;
+	}
+
+	public static List<IBean> getBeanActivationHistory() {
+		List<IBean> history = new ArrayList<IBean>();
+		for (String elementId : HISTORY) {
+			IModelElement element = BeansCorePlugin.getModel().getElement(elementId);
+			if (element instanceof IBean) {
+				history.add((IBean) element);
+			}
+		}
+		return history;
+	}
+}
 ```
 
-Google guava には ImmutableList の実装がありますので、こちらを利用しても良いです。
+### ImmutableList
+
+とにかく変更されない List を作りたいぞ！という時には、Google guava には ImmutableList の実装がありますので、こちらを利用しましょう。変更できないのでマルチスレッドで共有しても安心です。
 
 ```java
 // 空の immutable list を作成
@@ -68,6 +129,21 @@ ImmutableList<Object> build = ImmutableList.builder()
         .add(3)
         .addAll(of1)
         .build();
+```
+
+## 変更できない List を返す
+
+List を返すメソッドを実装する場合、その返した値を変更されると困ります。
+`java.util.Collections.unmodifiableList()` を使うと、変更不可能なビューを作成することができます。
+このメソッドで得られた List を変更することはできませんが、元の List を操作すると変更可能なことに注意が必要です。
+
+実際の利用シーンです。[org.springframework.boot.configurationprocessor.metadata;
+.ItemHint](https://github.com/spring-projects/spring-boot/blob/2a6b1e69b68730cc2e5be6d986fd58b0989fcb5a/spring-boot-tools/spring-boot-configuration-processor/src/main/java/org/springframework/boot/configurationprocessor/metadata/ItemHint.java)
+
+```java
+	public List<ValueHint> getValues() {
+		return Collections.unmodifiableList(this.values);
+	}
 ```
 
 ## Arrays.asList による List 構築
@@ -106,7 +182,7 @@ List<Integer> integers = Collections.singletonList(3);
 
 ## `Collections.emptyList()` で空のリストを得る
 
-空のリストが必要になることは多々ありますが、そのたびに新しいオブジェクトを生成していたら遅いです。そこで Java が提供しているメソッドから予めアロケートされた空のリストを取得することができます。
+空のリストが必要になることは多々ありますが、そのたびに新しいオブジェクトを生成していたら遅いです。そこで Java が提供しているメソッドから予めアロケートされた空のリストを取得することができます(このリストは変更不可です)。
 
 ## FAQ
 
