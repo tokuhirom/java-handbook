@@ -1,4 +1,4 @@
-# java-testing-handbook
+# java-handbook
 
 java に関する雑多なポエムです。
 Java を始めたての頃にこういう情報を教えてくれる人がいれば助かったのにな、というのを書いて置いておくところです。
