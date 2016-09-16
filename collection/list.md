@@ -152,10 +152,18 @@ Java に付属している java.util.List の実装は基本的にマルチス�
 
 ### `Collections.syncrhonizedList()`
 
-とはいえCollection をマルチスレッドで共有したいシーンもあります。そういう場合には `Collections.syncrhonizedList()`　を利用します。synchronizedList で得られるリストは操作ごとにロックをとるのでスレッドセーフになります。しかし、ロックを取る分遅いです。
+とはいえCollection をマルチスレッドで共有したいシーンもあります。そういう場合には `Collections.syncrhonizedList()`　を利用します。synchronizedList で得られるリストは操作ごとにロックをとるようになります。しかし、ロックを取る分遅いです。
 
 ```java
 List list = Collections.synchronizedList(new ArrayList(...));
+```
+
+synchronizedList は個々のメソッドは複数のスレッドからのメソッド呼び出しは安全ですが、複数のメソッドの呼び出しの間で保護されているわけではないので、気をつけて使う必要があります。
+
+```java
+if (!list.contains(a)) {
+  list.add(a);
+}
 ```
 
 ### CopyOnWriteArrayList
