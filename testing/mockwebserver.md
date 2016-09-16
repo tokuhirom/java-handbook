@@ -2,7 +2,7 @@
 
 ## SYNOPSIS
 
-```
+```java
 public void test() throws Exception {
   // Create a MockWebServer. These are lean enough that you can create a new
   // instance for every unit test.
