@@ -262,3 +262,18 @@ autoMappingUnknownColumnBehavior パラメータを設定してください。
 > NONE: 何もしません
 > WARNING: 警告ログを出力します ('org.apache.ibatis.session.AutoMappingUnknownColumnBehavior' のログレベルをWARNに設定してください)
 > FAILING: 自動マッピング処理をエラーにします。(SqlSessionExceptionが発生します)
+
+mybatis-config.xml に以下のように記述します
+
+```
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <settings>
+        <!-- Throw exception when auto property mapping failed -->
+        <setting name="autoMappingUnknownColumnBehavior" value="FAILING"/>
+    </settings>
+</configuration>
+```
