@@ -277,3 +277,11 @@ mybatis-config.xml に以下のように記述します
     </settings>
 </configuration>
 ```
+
+### @Param の指定が面倒なのですが
+
+mybatis 3.4.1 以後は `-parameters` 指定されているとその名前を利用するようになっています。
+
+useActualParamName でこの機能はオフにできます。
+
+(この機能は kotlin には対応していない様子。不便。)
