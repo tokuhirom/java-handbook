@@ -253,3 +253,12 @@ org.apache.ibatis.executor.statement.PreparedStatementHandler.update
 
 mybatis-generator を利用すればできます。
 得に理由はありませんが自分は利用していません。
+
+### マッピングにミスった時にハマりまくってウザいのですが……?
+
+autoMappingUnknownColumnBehavior パラメータを設定してください。
+
+> 自動マッピング対象のプロパティが存在しない(又はプロパティ型がサポート外の)カラムを検知した時の動作を指定します。
+> NONE: 何もしません
+> WARNING: 警告ログを出力します ('org.apache.ibatis.session.AutoMappingUnknownColumnBehavior' のログレベルをWARNに設定してください)
+> FAILING: 自動マッピング処理をエラーにします。(SqlSessionExceptionが発生します)
