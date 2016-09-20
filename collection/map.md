@@ -55,13 +55,13 @@ apple,banana,orange
 apple,orange,banana
 ```
 
-## `Collections.synchronizedSortedMap` による同期化
+## `Collections.synchronizedMap` による同期化
 
 ```java
-  synchronizedMap = Collections.synchronizedSortedMap(origMap);
+  synchronizedMap = Collections.synchronizedMap(origMap);
 ```
 
-Map に対して `Collections.synchronizedSortedMap` をかけると、同期化された Map を得ることができます。
+Map に対して `Collections.synchronizedMap` をかけると、同期化された Map を得ることができます。
 
 ## ConcurrentHashMap
 
