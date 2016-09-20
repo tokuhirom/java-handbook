@@ -108,7 +108,7 @@ ImmutableMap.builder()
 
 MemoryMeter を利用すれば以下の様にかんたんにメモリ使用量を計測することができます。
 
-```
+```java
 public class MapSize {
     @Test
     public void test() {
