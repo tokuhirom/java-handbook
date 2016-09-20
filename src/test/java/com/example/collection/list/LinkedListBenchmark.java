@@ -1,4 +1,4 @@
-package com.example.collection;
+package com.example.collection.list;
 
 import com.example.Benchmark;
 import org.junit.Test;

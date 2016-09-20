@@ -287,6 +287,53 @@ List<Integer> integers = Collections.singletonList(3);
 
 空のリストが必要になることは多々ありますが、そのたびに新しいオブジェクトを生成していたら遅いです。そこで Java が提供しているメソッドから予めアロケートされた空のリストを取得することができます(このリストは変更不可です)。
 
+## List 実装ごとの使用容量の比較
+
+MemoryMeter を利用して各 List 実装ごとのメモリ使用量の比較をしてみます。
+
+```java
+public class ListSize {
+    @Test
+    public void test() {
+        Stream.<List<Integer>>of(
+                new ArrayList<>(),
+                new LinkedList<>())
+                .forEach(array -> {
+                    IntStream.rangeClosed(0, 1_000_000)
+                            .forEach(array::add);
+                    calcAndPrintSize(array);
+                });
+
+        ImmutableList.Builder<Integer> builder = ImmutableList.builder();
+        IntStream.rangeClosed(0, 1_000_000)
+                .forEach(builder::add);
+        calcAndPrintSize(builder.build());
+    }
+
+    private void calcAndPrintSize(Object o) {
+        MemoryMeter memoryMeter = new MemoryMeter();
+        long objectSize = memoryMeter.measure(o);
+        long objectSizeDeep = memoryMeter.measureDeep(o);
+        System.out.printf("%-30s: %-10s %-10s\n",
+                o.getClass().getSimpleName(),
+                NumberFormat.getInstance().format(objectSize),
+                NumberFormat.getInstance().format(objectSizeDeep));
+    }
+}
+```
+
+Java 1.8.0_77 と guava 19.0 での実行結果です：
+
+```
+ArrayList                     : 24         20,862,008
+LinkedList                    : 32         40,000,072
+RegularImmutableList          : 32         20,000,072
+```
+
+ArrayList と ImmutableList はほとんど差がありません。
+
+ArrayList と LinkedList との比較では 1要素あたり 20 バイト程度のオーバーヘッドがあるようです。
+
 ## FAQ
 
 ### list に比べて配列を利用するメリットはあるの？
