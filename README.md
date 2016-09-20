@@ -38,6 +38,7 @@ src/ 以下がサンプルコード。build.gradle がサンプルコードの�
  * mockito
    * argumentcaptor
  * サロゲートペアの話題
+<<<<<<< Updated upstream
 
 ## THANKS TO
 
@@ -47,3 +48,6 @@ src/ 以下がサンプルコード。build.gradle がサンプルコードの�
  * @gakuzzzz
  * @hishidama
 
+=======
+ * https://github.com/jbellis/jamm - B::Size
+>>>>>>> Stashed changes

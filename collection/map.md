@@ -101,3 +101,57 @@ ImmutableMap.builder()
   .put("hoge", "fuga")
   .build()
 ```
+
+## Map の実装ごとのメモリ消費量
+
+100万エントリーストアした場合における、メモリ消費量を計測してみました。
+
+MemoryMeter を利用すれば以下の様にかんたんにメモリ使用量を計測することができます。
+
+```
+public class MapSize {
+    @Test
+    public void test() {
+        Stream.<Map<Integer, Integer>>of(new HashMap<>(),
+                new LinkedHashMap<>(),
+                new TreeMap<>())
+                .forEach(map -> {
+                    IntStream.rangeClosed(0, 1_000_000)
+                            .forEach(i -> map.put(i, i));
+                    calcAndPrintSize(map);
+                });
+
+        ImmutableMap.Builder<Integer, Integer> builder = ImmutableMap.builder();
+        IntStream.rangeClosed(0, 1_000_000)
+                .forEach(i -> builder.put(i, i));
+        calcAndPrintSize(builder.build());
+    }
+
+    private void calcAndPrintSize(Object o) {
+        MemoryMeter memoryMeter = new MemoryMeter();
+        long objectSize = memoryMeter.measure(o);
+        long objectSizeDeep = memoryMeter.measureDeep(o);
+        System.out.printf("%-15s: %-10s %-10s\n",
+                o.getClass().getSimpleName(),
+                NumberFormat.getInstance().format(objectSize),
+                NumberFormat.getInstance().format(objectSizeDeep));
+    }
+
+}
+```
+
+Java 1.8.0_77, guava 19.0 における計測結果です。Map そのものと中身含めた全体での容量をそれぞれ計測しています。
+
+```
+実装                : 単体        全体
+HashMap             : 48         72,386,688
+LinkedHashMap       : 56         80,386,704
+TreeMap             : 48         71,998,072
+RegularImmutableMap : 40         64,192,392
+
+```
+
+LinkedHashMap が想定通り link のぶんだけやや大きいことがわかります。ImmutableMap が意外と小さいことがわかりました。
+
+この結果は型が `Map<Integer, Integer>` の場合なので、より大きいオブジェクトをストアした場合には全体的に見たときの Map 実装そのものによるメモリ使用量の影響は相対的に小さくなりますので、よほど大きい Map を作らない限りはあまり気にしすぎないほうが良いでしょう(現実的には Web アプリケーションでは100万エントリー以上の大きい Map を Java アプリケーションの中にストアする必要があることは少ないですし)。 
+
