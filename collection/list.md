@@ -351,3 +351,161 @@ ArrayList と LinkedList との比較では 1要素あたり 20 バイト程度�
  * 可変長引数の処理
  * byte 配列
  * VM を実装するときの irep
+
+### LinkedList の index アクセスってどれぐらい遅いの？
+
+以下は n 個の要素を持つ List に対して、すべての要素に index アクセスを行った場合のベンチマークです。
+
+```java
+@Test
+public void indexBench() throws Exception {
+    for (Integer x : Arrays.asList(1000, 10_000)) {
+        System.out.printf("--- %d ---", x);
+        Benchmark benchmark = new Benchmark(new IndexBenchmark(x));
+        benchmark.runByTime(1).timethese().cmpthese();
+    }
+}
+
+public class IndexBenchmark {
+    private final ArrayList<Integer> arrayList;
+    private final LinkedList<Integer> linkedList;
+    private final int size;
+
+    public IndexBenchmark(int size) {
+        this.size = size;
+        arrayList = new ArrayList<>(size);
+        linkedList = new LinkedList<>();
+
+        IntStream.rangeClosed(0, size)
+                .forEach(arrayList::add);
+        IntStream.rangeClosed(0, size)
+                .forEach(linkedList::add);
+    }
+
+    @Benchmark.Bench
+    public void arrayList() {
+        for (int i = 0; i < size; ++i) {
+            arrayList.get(i);
+        }
+    }
+
+    @Benchmark.Bench
+    public void linkedList() {
+        for (int i = 0; i < size; ++i) {
+            linkedList.get(i);
+        }
+    }
+}
+```
+
+LinkedList が極めて遅いことがわかります。LinkedList の場合、リストのノードを辿っていかなかいと目的の要素を取得できないので妥当ですね。
+
+```
+--- n=1000 ---
+Score:
+
+arrayList:  1 wallclock secs ( 1.02 usr +  0.01 sys =  1.03 CPU) @ 203588744.03/s (n=210520330)
+linkedList:  1 wallclock secs ( 1.08 usr +  0.01 sys =  1.09 CPU) @ 2387.50/s (n=2598)
+
+Comparison chart:
+
+                     Rate  arrayList  linkedList
+   arrayList  203588744/s         --    8527189%
+  linkedList       2387/s      -100%          --
+--- n=10000 ---
+Score:
+
+arrayList:  1 wallclock secs ( 1.24 usr +  0.01 sys =  1.24 CPU) @ 216567792.69/s (n=269306165)
+linkedList:  1 wallclock secs ( 1.03 usr +  0.01 sys =  1.04 CPU) @ 17.37/s (n=18)
+
+Comparison chart:
+
+                     Rate  arrayList   linkedList
+   arrayList  216567793/s         --  1246963562%
+  linkedList       17.4/s      -100%           --
+```
+
+`LinkedList#get` の実装は、LinkedList は内部的に first/last のノードを保持しており、半分より前の要素にアクセスした時は first から順に、半分より後にアクセスしたときは last から順にリンクを辿っていく実装になっています。このため、取得位置によって get の速度は違うことに注意してください。
+末尾のみ取得するベンチマークをとって比較しても意味がありません。
+
+なお、`List#get` ではなくイテレータなどで順番に要素を取り出す分にはそれほど遅くありません。慣れているからと C-style の for でアクセスしたりするのではなく、イテレータなどを用いてちゃんとアクセスしないとひどい目にあうことがありえます。
+
+以下にイテレータで各要素を取り出す例をあげます。
+
+```java
+@Test
+public void streamTest() throws Exception {
+    for (Integer x : Arrays.asList(1000, 10_000)) {
+        System.out.printf("--- %d ---\n", x);
+        Benchmark benchmark = new Benchmark(new SumBenchmark(x));
+        benchmark.warmup(10_000);
+        benchmark.run(10_000).timethese().cmpthese();
+    }
+}
+
+public class SumBenchmark {
+    private final ArrayList<Integer> arrayList;
+    private final LinkedList<Integer> linkedList;
+    private final int size;
+
+    public SumBenchmark(int size) {
+        this.size = size;
+        arrayList = new ArrayList<>(size);
+        linkedList = new LinkedList<>();
+
+        IntStream.rangeClosed(0, size)
+                .forEach(arrayList::add);
+        IntStream.rangeClosed(0, size)
+                .forEach(linkedList::add);
+    }
+
+    @Benchmark.Bench
+    public void arrayList() {
+        Integer n = 0;
+        for (Integer integer : arrayList) {
+            n += integer;
+        }
+    }
+
+    @Benchmark.Bench
+    public void linkedList() {
+        Integer n = 0;
+        for (Integer integer : linkedList) {
+            n += integer;
+        }
+    }
+}
+```
+
+ArrayList と LinkedList の間にそれほど大きな差がないということがわかります。
+
+```
+--- 1000 ---
+Warm up: 10000
+
+
+Score:
+
+linkedList:  0 wallclock secs ( 0.07 usr +  0.03 sys =  0.09 CPU) @ 105308.61/s (n=10000)
+arrayList:  0 wallclock secs ( 0.07 usr +  0.01 sys =  0.08 CPU) @ 132415.25/s (n=10000)
+
+Comparison chart:
+
+                  Rate  linkedList  arrayList
+  linkedList  105309/s          --       -20%
+   arrayList  132415/s         26%         --
+--- 10000 ---
+Warm up: 10000
+
+
+Score:
+
+linkedList:  0 wallclock secs ( 0.47 usr +  0.01 sys =  0.48 CPU) @ 21040.89/s (n=10000)
+arrayList:  0 wallclock secs ( 0.40 usr +  0.00 sys =  0.41 CPU) @ 24679.29/s (n=10000)
+
+Comparison chart:
+
+                 Rate  linkedList  arrayList
+  linkedList  21041/s          --       -15%
+   arrayList  24679/s         17%         --
+```
