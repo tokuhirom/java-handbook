@@ -332,6 +332,8 @@ RegularImmutableList          : 32         20,000,072
 
 ArrayList と ImmutableList はほとんど差がありません。
 
+ImmutableList.Builder と ArrayList の内部バッファは同じ速度で grow していきますが、ImmutableList.Builder#build() が必要なサイズのバッファにコピーして RegularImmutableList のインスタンスを作成するためメモリ使用量が少なくなります。
+
 ArrayList と LinkedList との比較では 1要素あたり 20 バイト程度のオーバーヘッドがあるようです。
 
 ## FAQ
