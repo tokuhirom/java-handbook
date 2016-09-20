@@ -1,6 +1,6 @@
 # Map
 
-Map は Java の基本的なコレクションの一つです。
+Map は Java の基本的なコレクションの一つです。Python でいう辞書型、Perl や Ruby でいう Hash 型にあたるものです。
 
 本章ではざっくりとどれをどういうときに使うかという指針のみ示しますので、詳しいところは javadoc を御覧ください。
 
@@ -8,7 +8,7 @@ Map は Java の基本的なコレクションの一つです。
 
 ### java.util.HashMap
 
-最もよく使う Map の実装です。順序が保証されない辞書型です。
+最もよく使う Map の実装です。順序が保証されない辞書型です。ストアされた順番でイテレータで取り出すことは保証されません。
 
 ## java.util.LinkedHashMap
 
@@ -69,17 +69,17 @@ ConcurrentHashMap は便利なやつです。
 
 読み込みはブロックされません。最後にコミットされた変更が返されます。つまり、READ COMMITTED みたいな動作をします。
 
-アトミックに処理するための便利なメソッドがあります。
-
 Cache 用途に利用する場合は guava の CacheBuilder を利用したほうが良いケースも多いですから検討してください。
+
+アトミックに操作するための便利なメソッドがいくつか実装されています。
 
 ### `putIfAbsent(K key, V value)`
 
-キーが含まれてないときにストアします。
+キーが含まれてないときにストアします。操作は atomic に行われます。
 
 ### `computeIfAbsent(K key, Function<? super K,? extends V> mappingFunction)`
 
-キーがないと mappingFunction をコールしてストアします。
+キーに対応する値がストアされていない場合 mappingFunction をコールして結果をストアします。操作は atomic に行われます。
 キャッシュ的な用途に使えます。
 
 ```java
@@ -91,6 +91,8 @@ Cache 用途に利用する場合は guava の CacheBuilder を利用したほ�
 
 Google guava は ImmutableMap を提供しています。これは一度生成されると変更不可能な Map です。
 変更が不可能なのでスレッド間で共有しても安心です。
+
+null 値をストアすることはできないことに注意してください。
 
 ```java
 ImmutableMap.of(1,2,3);
