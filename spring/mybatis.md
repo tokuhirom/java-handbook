@@ -17,7 +17,7 @@ application.yml に以下のように記述します。
 # lower_case のカラム名を camelCase のプロパティにマッピングする
 mybatis.configuration.map-underscore-to-camel-case: true
 mybatis.configuration.default-fetch-size: 100
-mybatis.configuration.default-statement-timeout: true
+mybatis.configuration.default-statement-timeout: 30
 
 # マッピング不能なフィールドがあったときの処理。
 # NONE: 何もしない
