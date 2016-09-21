@@ -19,7 +19,10 @@ mybatis.configuration.map-underscore-to-camel-case: true
 mybatis.configuration.default-fetch-size: 100
 mybatis.configuration.default-statement-timeout: true
 
-# マッピング不能なフィールドがあったら throw (開発時のみオンにすると良いでしょう)
+# マッピング不能なフィールドがあったときの処理。
+# NONE: 何もしない
+# WARNING: WARN ログを出す(お勧め。org.apache.ibatis.session.AutoMappingUnknownColumnBehavior で WARN です)
+# FAILING: Fail mapping (Throw SqlSessionException) (local 開発時のみオンにすると良いでしょう)
 mybatis.configuration.auto-mapping-unknown-column-behavior: FAILING
 
 # タイプハンドラの適用
