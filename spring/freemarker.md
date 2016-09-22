@@ -358,4 +358,13 @@ HTML escape 漏れから開放され、Web アプリケーションをセキュ�
 
 ## spring.ftl について
 
-TBD
+spring.ftl は、便利なマクロが含まれているコードです。
+
+### spring.ftl と auto escape
+
+spring-webmvc に含まれている spring.ftl は auto escape に対応していません。
+互換性の問題があるので、spring 4.x 系列では対応しないとのことです(ref. [SPR-14740](https://jira.spring.io/browse/SPR-14740))
+
+現状では spring.ftl の内容をコピペして問題を修正して利用する必要があります。
+
+spring 5.0 リリースタイミングで修正される見込みです。
