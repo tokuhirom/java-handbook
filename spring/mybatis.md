@@ -36,3 +36,10 @@ mybatis-boot-starter は `@Mapper` アノテーションが書いてあるクラ
 
 詳細については [mybatis-spring-boot-starterの使い方
 ](http://qiita.com/kazuki43zoo/items/ea79e206d7c2e990e478#mapper%E3%82%A4%E3%83%B3%E3%82%BF%E3%83%95%E3%82%A7%E3%83%BC%E3%82%B9%E3%81%AE%E3%82%B9%E3%82%AD%E3%83%A3%E3%83%B3%E3%81%AE%E4%BB%95%E7%B5%84%E3%81%BF) が詳しいのでご参照ください。
+
+## IntelliJ で MyBatis のアノテーションに injection したい
+
+[assets/mybatis-intellij-language-injections.xml]() にアノテーションから自動設定するための XML ファイルを置きましたので、
+各位で以下の画像を参考に設定してください。手で @Select, @Insert, @Delete, @Update にそれぞれ Cmd+Enter おして設定していっても同様の効果が得られます。
+
+[![https://gyazo.com/8dc814cb5e426f0cfbf722742bc33e9a](https://i.gyazo.com/8dc814cb5e426f0cfbf722742bc33e9a.png)](https://gyazo.com/8dc814cb5e426f0cfbf722742bc33e9a)
