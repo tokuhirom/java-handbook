@@ -53,6 +53,7 @@ logging.level.org.springframework.boot: DEBUG
  * 開発環境が複数ある場合でもコピペせずに済みます
 
 最終的なファイルの配置は以下のようになります。
+
 <img src="https://i.gyazo.com/6cbf5e06f8d1287ce8d7b4ad11b8c988.png">
 
 ## FAQ
