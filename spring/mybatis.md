@@ -43,3 +43,8 @@ mybatis-boot-starter は `@Mapper` アノテーションが書いてあるクラ
 各位で以下の画像を参考に設定してください。手で @Select, @Insert, @Delete, @Update にそれぞれ Cmd+Enter おして設定していっても同様の効果が得られます。
 
 [![https://gyazo.com/8dc814cb5e426f0cfbf722742bc33e9a](https://i.gyazo.com/8dc814cb5e426f0cfbf722742bc33e9a.png)](https://gyazo.com/8dc814cb5e426f0cfbf722742bc33e9a)
+
+Database との連携設定をすると、annotation の中でも SQL のテーブル名・カラム名を補完しながらかけますので設定したほうが開発効率があがります。
+
+Database との連携設定についてはこちら参照してください。
+https://youtu.be/E8nX707UC9k
