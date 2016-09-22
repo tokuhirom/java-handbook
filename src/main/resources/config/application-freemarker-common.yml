@@ -1,0 +1,12 @@
+spring.freemarker:
+  charset: UTF-8
+  settings:
+    # default charset for string?url()
+    url_escaping_charset: UTF-8
+    # no auto commify
+    number_format: 0.#######
+    # Enable auto escape
+    # http://freemarker.org/docs/dgui_misc_autoescaping.html
+    output_format: HTMLOutputFormat
+    lazy_auto_imports: true
+    auto_import: /spring.ftl as spring

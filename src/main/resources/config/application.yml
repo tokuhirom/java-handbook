@@ -1,0 +1,68 @@
+# ---------------------------------------------------------------------------------------------------------------------
+#
+# デフォルトの設定
+#
+# ---------------------------------------------------------------------------------------------------------------------
+
+
+# spring-security が basic auth をデフォルトで有効にしてるのマジ意味がわからない
+security:
+  basic:
+    enabled: false
+
+management:
+  port: ${port:8081}
+
+server:
+  port: ${port:8080}
+  use-forward-headers: true
+#  error:
+#    path: /error
+#    whitelabel.enabled: false # if false, show error.ftl
+
+spring:
+  http:
+    multipart:
+      location: /tmp
+      maxFileSize: 5Mb
+      maxRequestSize: 10Mb
+  session:
+    store-type: redis
+
+# 不要な情報を http header で出力しない(security 対策)
+# http://qiita.com/tksmaru/items/8b387196ad312f913a2a
+management.add-application-context-header: false
+
+# 大したことないことなのにうるさく言ってくるロガーを黙らせる
+logging.level.org.springframework.web.servlet.PageNotFound: ERROR
+
+logging.level.me.geso: DEBUG
+spring.datasource.url: jdbc:mysql://localhost/qnd
+spring.datasource.username: root
+spring.datasource.password: 
+spring.datasource.driver-class-name: com.mysql.jdbc.Driver
+
+# ---------------------------------------------------------------------------------------------------------------------
+#
+# 以下、profile ごとの設定
+#
+# ---------------------------------------------------------------------------------------------------------------------
+
+---
+spring.profiles: default
+spring.profiles.active: local
+---
+spring.profiles: local
+spring.profiles.include: "\
+  logging-devel,\
+  mybatis-common,\
+  freemarker-devel,\
+  freemarker-common
+"
+---
+spring.profiles: release
+spring.profiles.include: "\
+  mybatis-common,\
+  freemarker-release,\
+  freemarker-common
+"

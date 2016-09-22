@@ -14,19 +14,19 @@ dependencies {
 application.yml に以下のように記述します。
 
 ```yaml
-# lower_case のカラム名を camelCase のプロパティにマッピングする
-mybatis.configuration.map-underscore-to-camel-case: true
-mybatis.configuration.default-fetch-size: 100
-mybatis.configuration.default-statement-timeout: 30
-
-# マッピング不能なフィールドがあったときの処理。
-# NONE: 何もしない
-# WARNING: WARN ログを出す(お勧め。org.apache.ibatis.session.AutoMappingUnknownColumnBehavior で WARN です)
-# FAILING: Fail mapping (Throw SqlSessionException) (local 開発時のみオンにすると良いでしょう)
-mybatis.configuration.auto-mapping-unknown-column-behavior: FAILING
-
-# タイプハンドラの適用
-mybatis.type-handlers-package: com.example.typehandler
+mybatis:
+  configuration:
+    # lower_case のカラム名を camelCase のプロパティにマッピングする
+    mapUnderscoreToCamelCase: true
+    defaultFetchSize: 100
+    defaultStatementTimeout: 30
+    # マッピング不能なフィールドがあったときの処理。
+    # NONE: 何もしない
+    # WARNING: WARN ログを出す(お勧め。org.apache.ibatis.session.AutoMappingUnknownColumnBehavior で WARN です)
+    # FAILING: Fail mapping (Throw SqlSessionException) (local 開発時のみオンにすると良いでしょう)
+    autoMappingUnknownColumnBehavior: FAILING    
+  # タイプハンドラの適用
+  type-handlers-package: com.example.typehandler
 ```
 
 mybatis-boot-starter は `@Mapper` アノテーションが書いてあるクラスをスキャンするので、各マッパークラスには `@Mapper` アノテーションをお忘れなく。
