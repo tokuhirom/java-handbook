@@ -48,3 +48,5 @@ Database との連携設定をすると、annotation の中でも SQL のテー�
 
 Database との連携設定についてはこちら参照してください。
 https://youtu.be/E8nX707UC9k
+
+(これぐらいやってくれるプラグインがありそうだが、よくわからない)
