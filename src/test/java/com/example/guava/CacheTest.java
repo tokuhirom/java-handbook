@@ -9,9 +9,6 @@ import org.junit.Test;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 
-/**
- * Created by tokuhirom on 9/7/16.
- */
 public class CacheTest {
     private static final RemovalListener<? super Object, ? super Object> MY_LISTENER = notification -> {
         System.out.println("Removed cache item");
