@@ -7,7 +7,6 @@ dependencies {
     compile 'org.springframework.boot:spring-boot-starter-jetty'
     compile 'org.springframework.boot:spring-boot-starter-web'
     compile 'org.webjars.npm:bootstrap'
-    compileOnly 'org.projectlombok:lombok'
 
     testCompile 'org.springframework.boot:spring-boot-starter-test'
 }

@@ -5,7 +5,6 @@ dependencies {
     compile 'org.mybatis:mybatis-typehandlers-jsr310'
     compile 'org.mybatis.spring.boot:mybatis-spring-boot-starter'
     compile 'com.h2database:h2'
-    compile 'org.projectlombok:lombok'
 
     testCompile 'org.mockito:mockito-core'
     testCompile 'org.assertj:assertj-core'
