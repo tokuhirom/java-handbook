@@ -12,9 +12,10 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
+import javax.servlet.http.Cookie;
 import java.util.Locale;
 
-import static org.junit.matchers.JUnitMatchers.containsString;
+import static org.hamcrest.CoreMatchers.containsString;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -81,22 +82,23 @@ public class I18nControllerTest {
     @Test
     public void setLocale() throws Exception {
         // set locale to japanese
-        {
-            mockMvc.perform(post("/set-locale").param("locale", "ja"))
-                    .andDo(print())
-                    .andExpect(status().is(302))
-                    .andExpect(view().name("redirect:/i18n"))
-                    .andExpect(header().string("location", "/i18n"))
-                    .andExpect(cookie().value("locale", "ja"));
-        }
+        Cookie cookie = mockMvc.perform(
+                post("/set-locale").param("locale", "ja")
+        )
+                .andDo(print())
+                .andExpect(status().is(302))
+                .andExpect(view().name("redirect:/i18n"))
+                .andExpect(header().string("location", "/i18n"))
+                .andExpect(cookie().value("locale", "ja"))
+                .andReturn()
+                .getResponse()
+                .getCookie("locale");
 
         // prefer cookie
-        {
-            mockMvc.perform(get("/i18n").locale(Locale.ENGLISH))
+        mockMvc.perform(get("/i18n").locale(Locale.ENGLISH).cookie(cookie))
                     .andDo(print())
                     .andExpect(status().isOk())
                     .andExpect(view().name("i18n"))
                     .andExpect(content().string(containsString("ようこそ")));
-        }
     }
 }

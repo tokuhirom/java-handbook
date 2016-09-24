@@ -1,7 +1,9 @@
 package com.example.mockito;
 
+import org.assertj.core.api.Assertions;
 import org.junit.Test;
 import org.mockito.Mockito;
+import org.mockito.exceptions.verification.SmartNullPointerException;
 
 import static org.mockito.Mockito.mock;
 
@@ -17,6 +19,7 @@ public class MockitoReturnsSmartNullsTest {
     @Test
     public void test() {
         Foo mock = mock(Foo.class, Mockito.RETURNS_SMART_NULLS);
-        mock.boz().hoge();
+        Assertions.assertThatThrownBy(() -> mock.boz().hoge())
+                .isInstanceOf(SmartNullPointerException.class);
     }
 }

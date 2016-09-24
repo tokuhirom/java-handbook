@@ -47,7 +47,7 @@ public class MockitoSimpleSampleTest {
 
         // 呼んだら IllegalStateException が発生するようにする
         when(dog.berk())
-                .thenThrow(IllegalStateException.class);
+                .thenThrow(new IllegalStateException());
 
         // 設定したものが返ってきていることを確認
         assertThatThrownBy(dog::berk)

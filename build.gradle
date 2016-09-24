@@ -9,7 +9,8 @@ buildscript {
         }
     }
     dependencies {
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+        classpath "org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}"
+        classpath 'io.spring.gradle:dependency-management-plugin:0.6.0.RELEASE'
     }
 }
 
@@ -24,10 +25,36 @@ description = """java handbook sample code"""
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
-repositories {
-    maven { url "https://repo.spring.io/snapshot" }
-    maven { url "https://repo.spring.io/milestone" }
-    maven { url "http://repo.maven.apache.org/maven2" }
+// https://github.com/spring-io/platform/blob/master/platform-bom/pom.xml
+// https://github.com/spring-projects/spring-boot/blob/master/spring-boot-dependencies/pom.xml
+
+allprojects {
+    apply plugin: 'spring-boot'
+    apply plugin: 'io.spring.dependency-management'
+
+    repositories {
+        maven { url "https://repo.spring.io/snapshot" }
+        maven { url "https://repo.spring.io/milestone" }
+        maven { url "http://repo.maven.apache.org/maven2" }
+    }
+    
+    ext['guava.version'] = '19.0' // Update from Spring IO default "17.0" (by Athens-RELEASE)
+    ext['okhttp3.version'] = '3.4.1' // Update from Spring IO default "3.3.1" (by Athens-RELEASE)
+    ext['assetj.version'] = '3.5.2' // Update from Spring IO default "2.5.0" (by Athens-RELEASE)
+
+    dependencyManagement {
+        imports {
+            mavenBom 'io.spring.platform:platform-bom:Athens-RELEASE'
+        }
+
+        dependencies {
+            dependency 'org.mybatis.spring.boot:mybatis-spring-boot-starter:1.1.1'
+            dependency 'org.mybatis:mybatis-typehandlers-jsr310:1.0.1'
+            dependency 'org.webjars.npm:bootstrap:3.3.5'
+            dependency "com.squareup.okhttp3:mockwebserver:" + ext['okhttp3.version']
+            dependency 'com.github.jbellis:jamm:0.3.1'
+        }
+    }
 }
 
 tasks.withType(JavaCompile) {
@@ -40,31 +67,21 @@ configurations {
 }
 
 dependencies {
-    apply plugin: 'spring-boot'
-
-    compile "com.google.guava:guava:19.0"
-    compile group: 'org.springframework.boot', name: 'spring-boot-starter-jdbc'
-    compile 'org.springframework.boot:spring-boot-starter-web'
+    compile 'com.github.jbellis:jamm'
+    compile 'com.google.guava:guava'
+    compile 'com.h2database:h2'
+    compile 'mysql:mysql-connector-java'
+    compile 'org.mybatis:mybatis-typehandlers-jsr310'
+    compile 'org.mybatis.spring.boot:mybatis-spring-boot-starter'
+    compile 'org.projectlombok:lombok'
+    compile 'org.springframework.boot:spring-boot-starter-freemarker'
+    compile 'org.springframework.boot:spring-boot-starter-jdbc'
     compile 'org.springframework.boot:spring-boot-starter-jetty'
-    compile group: 'org.projectlombok', name: 'lombok', version: '1.16.8'
-    runtime group: 'com.h2database', name: 'h2', version: '1.4.192'
-    compile("org.mybatis.spring.boot:mybatis-spring-boot-starter:1.1.1")
-    compile('org.springframework.boot:spring-boot-starter-freemarker')
+    compile 'org.springframework.boot:spring-boot-starter-web'
+    compile 'org.webjars.npm:bootstrap'
 
-    testCompile "com.github.tomakehurst:wiremock:2.1.11"
-    testCompile "com.squareup.okhttp3:mockwebserver:3.4.1"
-    testCompile(group: 'org.springframework.boot', name: 'spring-boot-starter-test')
-    testCompile 'org.mockito:mockito-all:1.10.19'
-    compile 'mysql:mysql-connector-java:6.0.4'
-    testCompile 'org.assertj:assertj-core:2.4.1'
-
-    compile 'com.fasterxml.jackson.core:jackson-databind:2.5.3'
-    compile 'com.fasterxml.jackson.core:jackson-core:2.5.3'
-
-    testCompile 'com.github.jbellis:jamm:0.3.1'
-
-    compile 'org.mybatis.spring.boot:mybatis-spring-boot-starter:1.1.1'
-    compile 'org.mybatis:mybatis-typehandlers-jsr310:1.0.1'
-
-    compile 'org.webjars.npm:bootstrap:3.3.5'
+    testCompile 'com.squareup.okhttp3:mockwebserver'
+    testCompile 'org.assertj:assertj-core'
+    testCompile 'org.mockito:mockito-core'
+    testCompile 'org.springframework.boot:spring-boot-starter-test'
 }

@@ -27,14 +27,14 @@ public class MybatisTest {
     }
 
     interface BlogMapper {
-        @Insert("INSERT INTO blog.blog (title) VALUES (#{title})")
+        @Insert("INSERT INTO blog (title) VALUES (#{title})")
         @Options(useGeneratedKeys = true)
         int insert(Blog blog);
 
         @Update("UPDATE blog SET title=#{blog.title} WHERE blog_id=#{id} ORDER BY blog_id DESC")
         long update(@Param("id") long id, @Param("blog") Blog blog);
 
-        @Delete("DELETE blog WHERE id=#{id}")
+        @Delete("DELETE blog WHERE blog_id=#{id}")
         long delete(long id);
 
         @Select("SELECT COUNT(*) FROM blog")
@@ -53,7 +53,7 @@ public class MybatisTest {
         JdbcDataSource jdbcDataSource = buildDataSource();
 
         // テーブル定義
-        String schema = "CREATE TABLE blog (id BIGINT NOT NULL auto_increment PRIMARY KEY, title VARCHAR(255))";
+        String schema = "CREATE TABLE blog (blog_id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY, title VARCHAR(255))";
 
         Environment environment = new Environment(MybatisTest.class.getSimpleName(), new JdbcTransactionFactory(), jdbcDataSource);
         Configuration configuration = new Configuration(environment);
@@ -86,7 +86,7 @@ public class MybatisTest {
 
             // 全行とってみる
             {
-                List<Blog> all = mapper.findAll("id");
+                List<Blog> all = mapper.findAll("blog_id");
                 log.info("all: {}", all);
             }
 
@@ -95,7 +95,7 @@ public class MybatisTest {
             log.info("Updated rows: {}", update);
 
             // 全行とってみる
-            List<Blog> all2 = mapper.findAll("id DESC");
+            List<Blog> all2 = mapper.findAll("blog_id DESC");
             log.info("all: {}", all2);
 
             // 1行 DELETE する。返り値は affected rows。
@@ -110,7 +110,7 @@ public class MybatisTest {
 
             // 全行取得してみる
             {
-                List<Blog> all = mapper.findAll("id");
+                List<Blog> all = mapper.findAll("blog_id");
                 log.info("all: {}", all);
             }
         }
@@ -118,7 +118,7 @@ public class MybatisTest {
 
     private JdbcDataSource buildDataSource() {
         JdbcDataSource jdbcDataSource = new JdbcDataSource();
-        jdbcDataSource.setURL("jdbc:h2:mem:test;TRACE_LEVEL_SYSTEM_OUT=1");
+        jdbcDataSource.setURL("jdbc:h2:mem:test;TRACE_LEVEL_FILE=4");
         return jdbcDataSource;
     }
 }

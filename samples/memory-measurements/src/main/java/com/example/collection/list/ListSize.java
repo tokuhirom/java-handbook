@@ -2,7 +2,6 @@ package com.example.collection.list;
 
 import com.google.common.collect.ImmutableList;
 import org.github.jamm.MemoryMeter;
-import org.junit.Test;
 
 import java.text.NumberFormat;
 import java.util.ArrayList;
@@ -12,7 +11,10 @@ import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 public class ListSize {
-    @Test
+    public static void main(String[] args) {
+        new ListSize().test();
+    }
+
     public void test() {
         Stream.<List<Integer>>of(
                 new ArrayList<>(),

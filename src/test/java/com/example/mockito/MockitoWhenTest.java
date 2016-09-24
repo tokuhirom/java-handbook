@@ -2,7 +2,6 @@ package com.example.mockito;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.MockitoAnnotations;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -36,15 +35,5 @@ public class MockitoWhenTest {
                 .thenReturn(true);
         assertThat(printer.printMessage("hoge"))
                 .isTrue();
-    }
-
-    // void な場合
-    @Test
-    public void foo() {
-        MockitoAnnotations.initMocks(this);
-        Printer mock = mock(Printer.class);
-        String s = mock.boo("hoge");
-        s.startsWith("bar");
-        assertThat(s).isEqualTo("hoge");
     }
 }

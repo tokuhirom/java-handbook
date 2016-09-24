@@ -2,7 +2,6 @@ package com.example.collection.map;
 
 import com.google.common.collect.ImmutableMap;
 import org.github.jamm.MemoryMeter;
-import org.junit.Test;
 
 import java.text.NumberFormat;
 import java.util.HashMap;
@@ -14,7 +13,10 @@ import java.util.stream.Stream;
 
 // This test needs to run with -javaagent:path-to/jamm.jar
 public class MapSize {
-    @Test
+    public static void main(String[] args) {
+        new MapSize().test();
+    }
+
     public void test() {
         Stream.<Map<Integer, Integer>>of(new HashMap<>(),
                 new LinkedHashMap<>(),

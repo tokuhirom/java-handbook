@@ -2,6 +2,7 @@ package com.example.immutables;
 
 
 import com.google.common.collect.ImmutableList;
+import org.assertj.core.api.Assertions;
 import org.junit.Test;
 
 import java.util.Arrays;
@@ -26,15 +27,16 @@ public class ImmutablesTest {
 
     @Test
     public void test2() {
-        // 空の immutable list を作成
-        ImmutableList<Object> of = ImmutableList.of(1, 2, null);
+        // ImmutableList は null を許容しない
+        Assertions.assertThatThrownBy(() -> {
+            ImmutableList.of(1, 2, null);
+        }).isInstanceOf(NullPointerException.class);
     }
 
     @Test
     public void java() {
         // 複数の要素からリストを作成。
         List<Integer> integers = Arrays.asList(1, 2, 3);
-        integers.add(1);
 
         //　これはつまりこれと同じことなので
         Integer[] integers1 = {
@@ -46,8 +48,10 @@ public class ImmutablesTest {
 
     @Test
     public void unmodifiableList() {
-        List<Integer> integers = Collections.unmodifiableList(Arrays.asList(1, 2, 3));
-        integers.add(3);
+        Assertions.assertThatThrownBy(() -> {
+            List<Integer> integers = Collections.unmodifiableList(Arrays.asList(1, 2, 3));
+            integers.add(3);
+        }).isInstanceOf(UnsupportedOperationException.class);
     }
 
     @Test
