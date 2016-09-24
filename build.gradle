@@ -37,7 +37,7 @@ allprojects {
         maven { url "https://repo.spring.io/milestone" }
         maven { url "http://repo.maven.apache.org/maven2" }
     }
-    
+
     ext['guava.version'] = '19.0' // Update from Spring IO default "17.0" (by Athens-RELEASE)
     ext['okhttp3.version'] = '3.4.1' // Update from Spring IO default "3.3.1" (by Athens-RELEASE)
     ext['assetj.version'] = '3.5.2' // Update from Spring IO default "2.5.0" (by Athens-RELEASE)
@@ -67,7 +67,6 @@ configurations {
 }
 
 dependencies {
-    compile 'com.github.jbellis:jamm'
     compile 'com.google.guava:guava'
     compile 'com.h2database:h2'
     compile 'mysql:mysql-connector-java'

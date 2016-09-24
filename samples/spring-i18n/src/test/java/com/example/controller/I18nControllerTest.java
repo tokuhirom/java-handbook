@@ -1,6 +1,6 @@
 package com.example.controller;
 
-import com.example.DemoApplication;
+import com.example.I18nApplication;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -23,7 +23,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-@ComponentScan(basePackageClasses = DemoApplication.class)
+@ComponentScan(basePackageClasses = I18nApplication.class)
 public class I18nControllerTest {
     @Autowired
     WebApplicationContext wac;

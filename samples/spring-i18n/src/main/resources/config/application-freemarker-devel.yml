@@ -1,0 +1,12 @@
+spring.freemarker:
+  # テンプレートのキャッシュ。
+  # 開発時は false。本番では true。
+  cache: false
+  # 開発時は source directory を指定することにより、自動的にリロードされます。
+  template-loader-path:
+    - file:src/main/resources/templates/
+    - classpath:/templates/
+  settings:
+    # 例外の処理モード。
+    # 開発時は html_debug 本番は rethrow を指定する。
+    template_exception_handler: html_debug

@@ -1,11 +1,14 @@
-<#import "/__wrapper.ftl" as wrapper>
-<@wrapper.main>
+<!doctype html>
+<html>
+<head>
+</head>
+<body>
 
 <p>
-    <@spring.messageArgs "greeting.message", ['John'] />
+<@spring.messageArgs "greeting.message", ['John'] />
 </p>
 <hr>
-    <@spring.message "intro" />
+<@spring.message "intro" />
 
 <hr>
 
@@ -29,4 +32,5 @@ Current locale: ${springMacroRequestContext.locale}
     <input type="submit" name="locale" value="de"/>
 </form>
 
-</@wrapper.main>
+</body>
+</html>

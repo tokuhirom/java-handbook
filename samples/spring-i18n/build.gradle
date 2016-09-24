@@ -1,0 +1,14 @@
+apply plugin: 'java'
+apply plugin: 'spring-boot'
+
+dependencies {
+    compile 'com.google.guava:guava'
+    compile 'org.springframework.boot:spring-boot-starter-freemarker'
+    compile 'org.springframework.boot:spring-boot-starter-jetty'
+    compile 'org.springframework.boot:spring-boot-starter-web'
+    compile 'org.webjars.npm:bootstrap'
+    compileOnly 'org.projectlombok:lombok'
+
+    testCompile 'org.assertj:assertj-core'
+    testCompile 'org.springframework.boot:spring-boot-starter-test'
+}

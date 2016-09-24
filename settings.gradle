@@ -1,2 +1,3 @@
 include 'samples/memory-measurements'
 include 'samples/benchmarks'
+include 'samples/spring-i18n'
