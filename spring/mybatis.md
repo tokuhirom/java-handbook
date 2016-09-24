@@ -50,3 +50,5 @@ Database との連携設定についてはこちら参照してください。
 https://youtu.be/E8nX707UC9k
 
 (これぐらいやってくれるプラグインがありそうだが、よくわからない)
+
+[IDEA-161637](https://youtrack.jetbrains.com/issue/IDEA-161637) で intellij idea 側に実装することが提案されています。

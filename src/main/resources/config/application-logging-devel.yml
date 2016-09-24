@@ -1,3 +1,4 @@
 # 開発時だけ有効にしておきたいデバッグ設定を記述します。
 logging.level.org.springframework.web: DEBUG
 logging.level.org.springframework.ui: DEBUG
+logging.level.org.springframework.boot: DEBUG

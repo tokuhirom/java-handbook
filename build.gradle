@@ -1,6 +1,6 @@
 buildscript {
     ext {
-        springBootVersion = '1.4.0.RELEASE'
+        springBootVersion = '1.4.1.RELEASE'
     }
     repositories {
         mavenCentral()
@@ -34,12 +34,18 @@ tasks.withType(JavaCompile) {
     options.compilerArgs << "-Xlint:unchecked" << "-Xlint:deprecation" << '-parameters'
 }
 
+configurations {
+    compile.exclude module: "spring-boot-starter-tomcat"
+    compile.exclude module: "commons-logging"
+}
+
 dependencies {
     apply plugin: 'spring-boot'
 
     compile "com.google.guava:guava:19.0"
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-jdbc'
     compile 'org.springframework.boot:spring-boot-starter-web'
+    compile 'org.springframework.boot:spring-boot-starter-jetty'
     compile group: 'org.projectlombok', name: 'lombok', version: '1.16.8'
     runtime group: 'com.h2database', name: 'h2', version: '1.4.192'
     compile("org.mybatis.spring.boot:mybatis-spring-boot-starter:1.1.1")
@@ -47,9 +53,7 @@ dependencies {
 
     testCompile "com.github.tomakehurst:wiremock:2.1.11"
     testCompile "com.squareup.okhttp3:mockwebserver:3.4.1"
-    testCompile(group: 'org.springframework.boot', name: 'spring-boot-starter-test') {
-        exclude(module: 'commons-logging')
-    }
+    testCompile(group: 'org.springframework.boot', name: 'spring-boot-starter-test')
     testCompile 'org.mockito:mockito-all:1.10.19'
     compile 'mysql:mysql-connector-java:6.0.4'
     testCompile 'org.assertj:assertj-core:2.4.1'

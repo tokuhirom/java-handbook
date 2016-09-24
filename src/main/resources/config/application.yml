@@ -42,6 +42,10 @@ spring.datasource.username: root
 spring.datasource.password: 
 spring.datasource.driver-class-name: com.mysql.jdbc.Driver
 
+# メッセージリソースのファイル名をデフォルトの `src/main/resources/messages_ja.properties` から
+# `src/main/resources/i18n/messages_ja.properties` に変更する。
+spring.messages.basename: i18n/messages
+
 # ---------------------------------------------------------------------------------------------------------------------
 #
 # 以下、profile ごとの設定
