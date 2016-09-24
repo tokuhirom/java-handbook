@@ -1,0 +1,13 @@
+apply plugin: 'java'
+apply plugin: 'spring-boot'
+
+dependencies {
+    compile 'com.google.guava:guava'
+    compile 'com.fasterxml.jackson.core:jackson-databind'
+    compile 'com.fasterxml.jackson.core:jackson-core'
+
+    testCompile 'org.assertj:assertj-core'
+    testCompile 'junit:junit'
+    testCompile 'org.springframework.boot:spring-boot-starter-test'
+    testCompile 'org.springframework.boot:spring-boot-starter-logging'
+}

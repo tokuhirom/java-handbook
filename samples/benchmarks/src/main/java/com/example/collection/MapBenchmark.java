@@ -1,4 +1,4 @@
-package com.example.collection.map;
+package com.example.collection;
 
 import java.util.*;
 import java.util.function.Consumer;

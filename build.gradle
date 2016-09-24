@@ -7,10 +7,12 @@ buildscript {
         maven {
             url 'http://repo.springsource.org/milestone/'
         }
+        maven { url 'http://repo.spring.io/plugins-release' }
     }
     dependencies {
         classpath "org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}"
         classpath 'io.spring.gradle:dependency-management-plugin:0.6.0.RELEASE'
+        classpath 'org.springframework.build.gradle:propdeps-plugin:0.0.7'
     }
 }
 
@@ -29,8 +31,12 @@ targetCompatibility = 1.8
 // https://github.com/spring-projects/spring-boot/blob/master/spring-boot-dependencies/pom.xml
 
 allprojects {
-    apply plugin: 'spring-boot'
     apply plugin: 'io.spring.dependency-management'
+    apply plugin: 'java'
+    apply plugin: 'propdeps'
+    apply plugin: 'propdeps-maven'
+    apply plugin: 'propdeps-idea'
+    apply plugin: 'propdeps-eclipse'
 
     repositories {
         maven { url "https://repo.spring.io/snapshot" }
@@ -41,6 +47,7 @@ allprojects {
     ext['guava.version'] = '19.0' // Update from Spring IO default "17.0" (by Athens-RELEASE)
     ext['okhttp3.version'] = '3.4.1' // Update from Spring IO default "3.3.1" (by Athens-RELEASE)
     ext['assetj.version'] = '3.5.2' // Update from Spring IO default "2.5.0" (by Athens-RELEASE)
+    ext['lombok.version'] = '1.16.10'
 
     dependencyManagement {
         imports {
@@ -53,7 +60,12 @@ allprojects {
             dependency 'org.webjars.npm:bootstrap:3.3.5'
             dependency "com.squareup.okhttp3:mockwebserver:" + ext['okhttp3.version']
             dependency 'com.github.jbellis:jamm:0.3.1'
+            dependency "org.projectlombok:lombok:${ext['lombok.version']}"
         }
+    }
+
+    dependencies {
+        optional 'org.projectlombok:lombok'
     }
 }
 
@@ -64,23 +76,4 @@ tasks.withType(JavaCompile) {
 configurations {
     compile.exclude module: "spring-boot-starter-tomcat"
     compile.exclude module: "commons-logging"
-}
-
-dependencies {
-    compile 'com.google.guava:guava'
-    compile 'com.h2database:h2'
-    compile 'mysql:mysql-connector-java'
-    compile 'org.mybatis:mybatis-typehandlers-jsr310'
-    compile 'org.mybatis.spring.boot:mybatis-spring-boot-starter'
-    compile 'org.projectlombok:lombok'
-    compile 'org.springframework.boot:spring-boot-starter-freemarker'
-    compile 'org.springframework.boot:spring-boot-starter-jdbc'
-    compile 'org.springframework.boot:spring-boot-starter-jetty'
-    compile 'org.springframework.boot:spring-boot-starter-web'
-    compile 'org.webjars.npm:bootstrap'
-
-    testCompile 'com.squareup.okhttp3:mockwebserver'
-    testCompile 'org.assertj:assertj-core'
-    testCompile 'org.mockito:mockito-core'
-    testCompile 'org.springframework.boot:spring-boot-starter-test'
 }

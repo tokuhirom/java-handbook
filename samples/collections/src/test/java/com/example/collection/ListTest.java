@@ -1,4 +1,4 @@
-package com.example.immutables;
+package com.example.collection;
 
 
 import com.google.common.collect.ImmutableList;
@@ -9,7 +9,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-public class ImmutablesTest {
+public class ListTest {
     @Test
     public void test() {
         // 空の immutable list を作成

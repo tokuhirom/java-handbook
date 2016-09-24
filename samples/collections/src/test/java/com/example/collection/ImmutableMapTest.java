@@ -1,4 +1,4 @@
-package com.example.collection.map;
+package com.example.collection;
 
 import com.google.common.collect.ImmutableMap;
 import org.junit.Test;

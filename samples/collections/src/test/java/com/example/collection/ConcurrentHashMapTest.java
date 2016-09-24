@@ -1,4 +1,4 @@
-package com.example.collection.map;
+package com.example.collection;
 
 import org.junit.Test;
 
