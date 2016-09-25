@@ -31,7 +31,7 @@ System.out.println(objects);
 
 ## java.util.TreeSet
 
-要素を辞書順で保持する Set です。
+要素を [natural order](https://docs.oracle.com/javase/7/docs/api/java/lang/Comparable.html) で保持する Set です。
 
 ```java
 TreeSet<String> objects = new TreeSet<>();
