@@ -20,6 +20,10 @@ src/ 以下がサンプルコード。build.gradle がサンプルコードの�
  * [ant](https://github.com/tokuhirom/java-handbook/blob/master/ant.md) - XML で書く Makefile
  * [maven central](https://github.com/tokuhirom/java-handbook/blob/master/maven-central.md) - ビルドツール
  * [gradle](https://github.com/tokuhirom/java-handbook/blob/master/gradle.md) - ビルドツール
+ * Collections
+   * [List](https://github.com/tokuhirom/java-handbook/blob/master/collection/list.md)
+   * [Map](https://github.com/tokuhirom/java-handbook/blob/master/collection/map.md)
+   * [Set](https://github.com/tokuhirom/java-handbook/blob/master/collection/set.md)
  * Libraries
    * [guava](https://github.com/tokuhirom/java-handbook/blob/master/libraries/guava.md) - コンテナユーティリティー、オンメモリキャッシュ
    * [retrofit](https://github.com/tokuhirom/java-handbook/blob/master/libraries/retrofit.md) - 宣言的な HTTP Client
