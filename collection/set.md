@@ -33,6 +33,9 @@ System.out.println(objects);
 
 要素を [natural order](https://docs.oracle.com/javase/7/docs/api/java/lang/Comparable.html) で保持する Set です。
 
+各要素は Comparable を実装している必要があります。Comparable で比較されてが決定されるからです。
+`public TreeSet(Comparator<? super E> comparator)` で Comparator を別途渡すこともできます。
+
 ```java
 TreeSet<String> objects = new TreeSet<>();
 objects.add("A");
