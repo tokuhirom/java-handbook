@@ -58,9 +58,36 @@ guava のオンメモリキャッシュ機構は良く出来ているので利�
 Web アプリケーションの場合、JVM のオンメモリにあまりたくさんのデータを入れると GC 対象が増えてしまって GC にかかるコストが増大するので節度を持ってキャッシュすることが必要です。
 得に、スケールアウトする構成になっている場合には、redis 等で共有キャッシュを持つことも考慮に入れるべきでしょう。
 
-## apache commons と guava
+## CaseFormat の変換
+
+`CamelCase` を `lower_case` に変換したい時には CaseFormat を利用できます。
+
+| Format           | Example          |
+| ---------------- | ---------------- |
+| LOWER_CAMEL      | lowerCamel       |
+| LOWER_HYPHEN     | lower-hyphen     |
+| LOWER_UNDERSCORE | lower_underscore |
+| UPPER_CAMEL      | UpperCamel       |
+| UPPER_UNDERSCORE | UPPER_UNDERSCORE |
+
+
+以下のように利用できます。
+
+```java
+CaseFormat.UPPER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, "CONSTANT_NAME")); // returns "constantName"
+```
+
+## FAQ
+
+### apache commons と guava
 
 両方とも言語コアの機能の足りないところを補うことを目標に開発されたライブラリなので機能がわりとかぶっています。
 
 大差ないし、なんかいろいろと maven で依存入れてると両方とも依存に入ってきがち。
 お好みで使い分ければよろしい。
+
+### guava とバージョニング
+
+guava はあまり下位バージョンとの互換性を重視していないため、バージョン間でバイナリ互換性が保たれていない時があります。
+
+バージョンアップ時はご注意ください。
