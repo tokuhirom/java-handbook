@@ -1,6 +1,7 @@
 include 'samples/collections'
 include 'samples/guava'
 include 'samples/jackson'
+include 'samples/jmh'
 include 'samples/lombok'
 include 'samples/mockito'
 include 'samples/mybatis'
