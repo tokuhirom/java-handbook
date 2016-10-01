@@ -3,4 +3,5 @@
 /.idea/
 /build/
 /samples/*/build/
+/samples/*/*/build/
 /classes/
