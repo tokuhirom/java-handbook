@@ -1,0 +1,15 @@
+apply plugin: 'java'
+
+dependencies {
+    compile 'junit:junit'
+}
+compileJava {
+    options.compilerArgs << '-Werror'
+    options.compilerArgs << '-Xlint:all'
+    // Don't fail for annotations not claimed by annotation processors.
+    options.compilerArgs << '-Xlint:-processing'
+    // Don't fail for serialVersionUID warnings.
+    options.compilerArgs << '-Xlint:-serial'
+    // Capture method parameter names in classfiles.
+    options.compilerArgs << '-parameters'
+}

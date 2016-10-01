@@ -44,6 +44,13 @@ allprojects {
         maven { url "http://repo.maven.apache.org/maven2" }
     }
 
+    tasks.withType(JavaCompile) {
+        options.compilerArgs << "-Xlint:unchecked" << "-Xlint:deprecation" << '-parameters'
+    }
+compileJava {
+    options.compilerArgs << "-Xlint:unchecked" << "-Xlint:deprecation" << '-parameters'
+}
+
     ext['guava.version'] = '19.0' // Update from Spring IO default "17.0" (by Athens-RELEASE)
     ext['okhttp3.version'] = '3.4.1' // Update from Spring IO default "3.3.1" (by Athens-RELEASE)
     ext['assetj.version'] = '3.5.2' // Update from Spring IO default "2.5.0" (by Athens-RELEASE)
@@ -67,10 +74,6 @@ allprojects {
     dependencies {
         optional 'org.projectlombok:lombok'
     }
-}
-
-tasks.withType(JavaCompile) {
-    options.compilerArgs << "-Xlint:unchecked" << "-Xlint:deprecation" << '-parameters'
 }
 
 configurations {

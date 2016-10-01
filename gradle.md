@@ -16,6 +16,28 @@ maven は、maven でできる基本的な機能だけを利用している分�
 基本的には build.gradle と settings.gradle の２種類を記述すればOKです。
 build.gradle がメインの設定ファイルであり、settings.gradle はサブプロジェクトの include ができます。
 
+## コンパイルオプションの指定
+
+以下のように設定可能です。
+
+```groovy
+apply plugin: 'java'
+
+compileJava {
+  options.compilerArgs << '-Werror'
+  options.compilerArgs << '-Xlint:all'
+  // Don't fail for annotations not claimed by annotation processors.
+  options.compilerArgs << '-Xlint:-processing'
+  // Don't fail for serialVersionUID warnings.
+  options.compilerArgs << '-Xlint:-serial'
+  // Capture method parameter names in classfiles.
+  options.compilerArgs << '-parameters'
+}
+```
+
+しかし、これだけでは IntelliJ IDEA が読んでくれないため、
+
+[IDEA-161936](https://youtrack.jetbrains.com/issue/IDEA-161936) としてイシュー登録されています。
 
 ## gradle とかでインストールできるライブラリをリリースしたいのですが
 
