@@ -2,9 +2,11 @@
 
 JVM プロセスの内部状態を見るためには visualvm が便利です。
 
-## 起動
+## インストール
 
-VisualVM は jdk に添付されており、たとえば OSX では `/Library/Java/JavaVirtualMachines/jdk1.8.0_77.jdk/Contents/Home/bin/jvisualvm` にあったりします。 
+https://visualvm.github.io/ からダウンロードしてインストールします。
+
+## 起動
 
 VisualVM の起動にはコマンドラインで jvisualvm と打って起動します。
 
