@@ -61,8 +61,12 @@ JMX のリモート接続を有効にしているサーバーに対して簡単�
 
 ### Java Mission Control とどっちがいいの?
 
-Java Mission Control でも同じ事ができます。
-両方使ってみて使い勝手が良い方を利用するのが良いでしょう。
+Java Mission Control でも同じ事ができますが、Java Mission Control の使用は Oracle Java SE Advanced もしくは Oracle Java SE Suite のライセンス
+必要です。Flight Recorder なども利用できて便利なので、必要でアレば購入するのが良いでしょう
+
+ref. http://www.oracle.com/technetwork/jp/java/javaseproducts/overview/index.html
+
+visualvm は GPL なので無料で使えます
 
 ### visualvm だとリモート接続に jmx と jstatd が選べるけどどちらを選んだらいいの？
 
