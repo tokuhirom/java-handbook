@@ -45,9 +45,30 @@ Menu から Tools → Plugins を選んで、以下の画面からインスト�
 
 ![](https://github.com/tokuhirom/java-handbook/blob/master/tools/_assets/visualvm-mbeans.png?raw=true)
 
+## Remote 接続
+
+JMX のリモート接続を有効にしているサーバーに対して簡単に visualvm で接続できます。
+
+以下のように "File -> Add JMX Connection" を選んで、JMX 接続を追加します。
+
+[![https://gyazo.com/235aa0c66cd3db43a9c57433a6778a41](https://i.gyazo.com/235aa0c66cd3db43a9c57433a6778a41.gif)](https://gyazo.com/235aa0c66cd3db43a9c57433a6778a41)
+
+あとはローカルのサーバーと同様に接続できます。
+
+[![https://gyazo.com/0eedef0f29f56287d3621ea9df76e008](https://i.gyazo.com/0eedef0f29f56287d3621ea9df76e008.gif)](https://gyazo.com/0eedef0f29f56287d3621ea9df76e008)
+
 ## FAQ
 
 ### Java Mission Control とどっちがいいの?
 
 Java Mission Control でも同じ事ができます。
 両方使ってみて使い勝手が良い方を利用するのが良いでしょう。
+
+### visualvm だとリモート接続に jmx と jstatd が選べるけどどちらを選んだらいいの？
+
+jmx が良いです。
+
+[jstatd](https://docs.oracle.com/javase/8/docs/technotes/tools/unix/jstatd.html) は experimental だからです。
+
+> Monitors Java Virtual Machines (JVMs) and enables remote monitoring tools to attach to JVMs. This command is experimental and unsupported.
+  
