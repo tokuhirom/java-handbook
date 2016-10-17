@@ -58,7 +58,7 @@ spring:
 設定可能な項目は [HikariCP](https://github.com/brettwooldridge/HikariCP) の README に網羅されていますので、一通り目をとおしておくとよいでしょう。
 
 とくに MySQL の場合、設定していただきたいのは `spring.datasource.hikari.connection-init-sql` です。
-MySQL は歴史的な理由により、異常に data の validation がゆるく設定されているのですが、これをかなり strict な挙動をするように変更します。
-(mysqld 側の設定を変更している場合にはこの設定は必要ありません)
+MySQL は歴史的な理由により、デフォルトの設定だと「カラムに不正な値を挿入したときに警告」しますが、sql_mode を traditional にすると「カラムに不正な値を挿入したときにエラーを返し」ます。
+(mysqld 側にこの設定をすることもできますが、クライアント側に設定したほうがサーバー側での設定しわすれなどの環境間の差異を無視できるので僕はクライアント側でこの設定をしています)
 
 see also http://www.songmu.jp/riji/entry/2015-07-08-kamipo-traditional.html
