@@ -16,7 +16,8 @@ Connection Pool の実装としては以下のもののうち利用可能なも�
  3. Commons DBCP(Production での利用はお勧めしない）
  4. Commons DBCP2
 
-自動で選択をさせるには、connection pooling ライブラリは、それぞれの実装の差異が大きすぎるため、一般的なアプリケーションでは `spring.datasource.type` プロパティを設定して、明示的にどの connection pooling ライブラリを利用するかを指定したほうが良いでしょう。
+自動で選択をさせるには、connection pooling ライブラリは、それぞれの実装の差異が大きすぎます。
+一般的なアプリケーションでは `spring.datasource.type` プロパティを設定して、明示的にどの connection pooling ライブラリを利用するかを指定したほうが良いでしょう。
 
 ## 各 connection pooling ライブラリの比較
 
