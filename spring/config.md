@@ -19,20 +19,18 @@ spring.profiles: local
 # spring.profile.include で設定ファイルを読み込むことができます。
 # YAML のミラクルな記法で読みやすくしていますがそこはかとなく hack 臭さが漂います。
 # issue で要求中: https://github.com/spring-projects/spring-boot/issues/6995
-spring.profiles.include: "\
-  logging-devel,\
-  mybatis-common,\
-  freemarker-devel,\
-  freemarker-common
-"
+spring.profiles.include:
+  - logging-devel
+  - mybatis-common
+  - freemarker-devel
+  - freemarker-common
 ---
 # 本番環境用の設定です。
 spring.profiles: release
-spring.profiles.include: "\
-  mybatis-common,\
-  freemarker-release,\
-  freemarker-common
-"
+spring.profiles.include:
+  - mybatis-common
+  - freemarker-release
+  - freemarker-common
 ```
 
 ref. http://docs.spring.io/spring-boot/docs/current/reference/html/boot-features-profiles.html#boot-features-adding-active-profiles
