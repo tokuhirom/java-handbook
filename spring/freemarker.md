@@ -42,16 +42,14 @@ spring.profiles: default
 spring.profiles.active: local
 ---
 spring.profiles: local
-spring.profiles.include: "\
-  freemarker-devel,\
-  freemarker-common
-"
+spring.profiles.include:
+- freemarker-devel
+- freemarker-common
 ---
 spring.profiles: release
-spring.profiles.include: "\
-   freemarker-release,\
-   freemarker-common
-"
+spring.profiles.include:
+- freemarker-release
+- freemarker-common
 ```
 
 `src/main/resources/config/application-freemarker-common.yml` に以下のように設定します。
