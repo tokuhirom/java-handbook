@@ -52,3 +52,9 @@ https://youtu.be/E8nX707UC9k
 (これぐらいやってくれるプラグインがありそうだが、よくわからない)
 
 [IDEA-161637](https://youtrack.jetbrains.com/issue/IDEA-161637) で intellij idea 側に実装することが提案されています。
+
+### この設定をプロジェクト全体で共有したい
+
+[img](https://user-images.githubusercontent.com/21084/73325244-2106b400-4291-11ea-8600-abf653dd46be.png)
+
+ここを押すと、設定スコープが project 単位になるので、.idea/IntelliLang.xml に設定が入るので、これをレポジトリに入れてしまうと良い。
