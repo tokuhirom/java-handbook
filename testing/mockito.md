@@ -244,10 +244,6 @@ final　指定というのは継承ができないという指定です。
 
 僕は EasyMock 使ったことないので知りません
 
-### Mockito の 2.0 っていつ出るの？
-
-いつ出るんでしょうねえ。2.0 向けにすでにパッチ送って取り込まれてるのとかあるしはやく出て欲しい
-
 ## スタブし忘れて NullPointerException 発生するのが辛いです
 
 mockito では mocking していない場合、`org.mockito.internal.stubbing.defaultanswers.ReturnsEmptyValues` が返ります。
