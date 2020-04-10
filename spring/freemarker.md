@@ -8,7 +8,7 @@ freemarker を spring-boot で利用するには以下のように依存を追�
 ```groovy
 buildscript {
     ext {
-        springBootVersion = '1.4.0.RELEASE'
+        springBootVersion = '2.2.6.RELEASE'
     }
     repositories {
         mavenCentral()
@@ -67,7 +67,6 @@ spring.freemarker:
     # http://freemarker.org/docs/dgui_misc_autoescaping.html
     output_format: HTMLOutputFormat
     lazy_auto_imports: true
-    auto_import: /spring.ftl as spring
 ```
 
 `src/main/resources/config/application-freemarker-devel.yml` を以下のように設定します。
@@ -151,7 +150,7 @@ Note: ( https://issues.apache.org/jira/browse/FREEMARKER-35 そもそもコア�
 
 header/footer をちまちま設定するよりもマクロでラッパーしたほうが便利です。
 
-`src/main/resources/templates/__wrapper.ftl` というファイル名で以下の内容を置きます。
+`src/main/resources/templates/__wrapper.ftlh` というファイル名で以下の内容を置きます。
 
 ```ftl
 <#ftl strip_whitespace=true>
@@ -175,7 +174,7 @@ header/footer をちまちま設定するよりもマクロでラッパーした
 利用側では以下のようにします。`<@wrapper.main>` から `</@wrapper.main>` までの間に書いた内容は `__wrapper.ftl` の `<#nested/>` の中に展開されます。
 
 ```ftl
-<#import "/__wrapper.ftl" as wrapper>
+<#import "/__wrapper.ftlh" as wrapper>
 <@wrapper.main>
 
 <h1>List of items</h1>
@@ -187,7 +186,7 @@ header/footer をちまちま設定するよりもマクロでラッパーした
 
 ### テンプレートファイルのパスを補完できるようにする
 
-`src/main/resources/freemarker_implicit.ftl` を以下のように設定すると、`src/main/resources/templates/` をルートディレクトリとしてルート相対でテンプレートファイルのパスを IntelliJ で補完できるので便利です(`<#import "/__wrapper.ftl" as wrapper>` の `/__wrapper.ftl` の部分で補完がきくようになります)。
+`src/main/resources/freemarker_implicit.ftlh` を以下のように設定すると、`src/main/resources/templates/` をルートディレクトリとしてルート相対でテンプレートファイルのパスを IntelliJ で補完できるので便利です(`<#import "/__wrapper.ftl" as wrapper>` の `/__wrapper.ftl` の部分で補完がきくようになります)。
 
 ```ftl
 [#ftl]
@@ -340,29 +339,3 @@ Map 系の処理:
   </#list>
 
 ```
-
-## バージョンについて
-
-2.3.24-incubating で auto escape 機構が実装されました。
-Web アプリケーションを実装する場合、auto escape 機能はぜひ利用したい機能です。
-HTML escape 漏れから開放され、Web アプリケーションをセキュアに実装することが可能になります。
-
-できるだけ 2.3.24-incubating 以後を利用し、auto escape 機能を利用しましょう。
-
-なお `-incubating` の suffix は apache incubating だということを示しているだけです。
-開発版であることを示しているわけではないので、安心してご利用ください。
-
-その他、Escape 系のフィルタの security fix なども含まれている事があるので、最新版を利用することをおすすめします。
-
-## spring.ftl について
-
-spring.ftl は、便利なマクロが含まれているコードです。
-
-### spring.ftl と auto escape
-
-spring-webmvc に含まれている spring.ftl は auto escape に対応していません。
-互換性の問題があるので、spring 4.x 系列では対応しないとのことです(ref. [SPR-14740](https://jira.spring.io/browse/SPR-14740))
-
-現状では spring.ftl の内容をコピペして問題を修正して利用する必要があります。
-
-spring 5.0 リリースタイミングで修正される見込みです。

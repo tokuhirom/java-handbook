@@ -4,7 +4,7 @@ spring.freemarker:
   cache: false
   # 開発時は source directory を指定することにより、自動的にリロードされます。
   template-loader-path:
-    - file:src/main/resources/templates/
+    - file:samples/spring-i18n/src/main/resources/templates/
     - classpath:/templates/
   settings:
     # 例外の処理モード。

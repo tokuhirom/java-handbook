@@ -3,7 +3,9 @@ apply plugin: 'java'
 dependencies {
     compile 'com.google.guava:guava'
 
-    testCompile 'org.mockito:mockito-core'
-    testCompile 'org.assertj:assertj-core'
-    testCompile 'junit:junit'
+    testImplementation 'org.mockito:mockito-core:3.3.3'
+    testImplementation 'org.mockito:mockito-junit-jupiter:3.3.3'
+    testImplementation 'org.assertj:assertj-core'
+    testImplementation("org.junit.jupiter:junit-jupiter-api:5.6.1")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.6.1")
 }

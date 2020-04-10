@@ -1,23 +1,9 @@
-buildscript {
-    ext {
-        springBootVersion = '1.4.1.RELEASE'
-    }
-    repositories {
-        mavenCentral()
-        maven {
-            url 'https://repo.springsource.org/milestone/'
-        }
-        maven { url 'https://repo.spring.io/plugins-release' }
-    }
-    dependencies {
-        classpath "org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}"
-        classpath 'io.spring.gradle:dependency-management-plugin:0.6.0.RELEASE'
-        classpath 'io.spring.gradle:propdeps-plugin:0.0.9.RELEASE'
-    }
+plugins {
+    id 'org.springframework.boot' version '2.2.6.RELEASE' apply false
+    id 'io.spring.dependency-management' version '1.0.9.RELEASE'
+    id 'java'
+    id 'idea'
 }
-
-apply plugin: 'java'
-apply plugin: 'idea'
 
 group = 'com.example'
 version = '0.0.1-SNAPSHOT'
@@ -33,23 +19,18 @@ targetCompatibility = 1.8
 allprojects {
     apply plugin: 'io.spring.dependency-management'
     apply plugin: 'java'
-    apply plugin: 'propdeps'
-    apply plugin: 'propdeps-maven'
-    apply plugin: 'propdeps-idea'
-    apply plugin: 'propdeps-eclipse'
 
     repositories {
-        maven { url "https://repo.spring.io/snapshot" }
-        maven { url "https://repo.spring.io/milestone" }
-        maven { url "https://repo.maven.apache.org/maven2" }
+        mavenCentral()
     }
 
     tasks.withType(JavaCompile) {
         options.compilerArgs << "-Xlint:unchecked" << "-Xlint:deprecation" << '-parameters'
     }
-compileJava {
-    options.compilerArgs << "-Xlint:unchecked" << "-Xlint:deprecation" << '-parameters'
-}
+    compileJava {
+        options.compilerArgs << "-Xlint:unchecked" << "-Xlint:deprecation" << '-parameters'
+        options.encoding = 'UTF-8'
+    }
 
     ext['guava.version'] = '19.0' // Update from Spring IO default "17.0" (by Athens-RELEASE)
     ext['okhttp3.version'] = '3.4.1' // Update from Spring IO default "3.3.1" (by Athens-RELEASE)
@@ -67,16 +48,34 @@ compileJava {
             dependency 'org.webjars.npm:bootstrap:3.3.5'
             dependency "com.squareup.okhttp3:mockwebserver:" + ext['okhttp3.version']
             dependency 'com.github.jbellis:jamm:0.3.1'
-            dependency "org.projectlombok:lombok:${ext['lombok.version']}"
+            dependency 'org.projectlombok:lombok:' + ext['lombok.version']
+        }
+    }
+}
+
+subprojects {
+    test {
+        useJUnitPlatform()
+    }
+
+    configurations {
+        compileOnly {
+            extendsFrom annotationProcessor
         }
     }
 
     dependencies {
-        optional 'org.projectlombok:lombok'
+        compileOnly 'org.projectlombok:lombok'
+        annotationProcessor 'org.projectlombok:lombok'
+
+        testCompileOnly 'org.projectlombok:lombok'
+        testAnnotationProcessor 'org.projectlombok:lombok'
     }
 }
 
 configurations {
     compile.exclude module: "spring-boot-starter-tomcat"
     compile.exclude module: "commons-logging"
+    compile.exclude group: "junit"
+    compile.exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
 }

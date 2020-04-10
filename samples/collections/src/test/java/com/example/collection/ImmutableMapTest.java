@@ -1,7 +1,8 @@
 package com.example.collection;
 
+import org.junit.jupiter.api.Test;
+
 import com.google.common.collect.ImmutableMap;
-import org.junit.Test;
 
 public class ImmutableMapTest {
     @Test

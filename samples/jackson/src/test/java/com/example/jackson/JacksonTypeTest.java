@@ -8,9 +8,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.junit.Test;
 
 import java.io.IOException;
+
+import org.junit.jupiter.api.Test;
 
 public class JacksonTypeTest {
     @Test

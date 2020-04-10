@@ -1,10 +1,10 @@
 package com.example.mockito;
 
-import org.junit.Test;
-
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
+
+import org.junit.jupiter.api.Test;
 
 interface Gah {
     void bar();

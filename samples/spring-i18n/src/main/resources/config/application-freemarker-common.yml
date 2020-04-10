@@ -9,4 +9,3 @@ spring.freemarker:
     # http://freemarker.org/docs/dgui_misc_autoescaping.html
     output_format: HTMLOutputFormat
     lazy_auto_imports: true
-    auto_import: /spring_auto_escape.ftl as spring

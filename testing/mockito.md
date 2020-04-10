@@ -153,7 +153,7 @@ mockito により発生する NullPointerException は発見が困難なので�
         }
     }
     
-    @RunWith(MockitoJUnitRunner.class)
+    @ExtendWith(MockitoExtension.class)
     public class MockitoAnnotationTest {
         // @Mock 指定されたものは mock() される
         @Mock

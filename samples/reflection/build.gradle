@@ -1,8 +1,10 @@
 apply plugin: 'java'
 
 dependencies {
-    compile 'junit:junit'
+    testImplementation("org.junit.jupiter:junit-jupiter-api:5.6.1")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.6.1")
 }
+
 compileJava {
     options.compilerArgs << '-Werror'
     options.compilerArgs << '-Xlint:all'

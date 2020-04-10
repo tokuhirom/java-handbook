@@ -1,8 +1,8 @@
 package com.example.collection;
 
-import org.junit.Test;
-
 import java.util.concurrent.ConcurrentHashMap;
+
+import org.junit.jupiter.api.Test;
 
 public class ConcurrentHashMapTest {
     @Test

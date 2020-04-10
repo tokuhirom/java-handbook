@@ -4,10 +4,11 @@ import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
 import com.google.common.cache.RemovalListener;
-import org.junit.Test;
 
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
+
+import org.junit.jupiter.api.Test;
 
 public class CacheTest {
     private static final RemovalListener<? super Object, ? super Object> MY_LISTENER = notification -> {

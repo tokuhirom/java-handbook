@@ -6,10 +6,11 @@ import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.introspect.BeanPropertyDefinition;
 import lombok.Value;
-import org.junit.Test;
 
 import java.io.IOException;
 import java.util.List;
+
+import org.junit.jupiter.api.Test;
 
 public class LombokJacksonTest {
     @Value

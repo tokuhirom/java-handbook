@@ -19,14 +19,12 @@ spring.profiles: default
 spring.profiles.active: local
 ---
 spring.profiles: local
-spring.profiles.include: "\
-  logging-devel,\
-  freemarker-devel,\
-  freemarker-common
-"
+spring.profiles.include:
+  - logging-devel
+  - freemarker-devel
+  - freemarker-common
 ---
 spring.profiles: release
-spring.profiles.include: "\
-  freemarker-release,\
-  freemarker-common
-"
+spring.profiles.include:
+  - freemarker-release
+  -  freemarker-common

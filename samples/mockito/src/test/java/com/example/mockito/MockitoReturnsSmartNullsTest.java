@@ -1,7 +1,7 @@
 package com.example.mockito;
 
 import org.assertj.core.api.Assertions;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.mockito.exceptions.verification.SmartNullPointerException;
 
