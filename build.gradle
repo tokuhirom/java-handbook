@@ -33,7 +33,6 @@ allprojects {
     }
 
     ext['okhttp3.version'] = '3.4.1' // Update from Spring IO default "3.3.1" (by Athens-RELEASE)
-    ext['assetj.version'] = '3.5.2' // Update from Spring IO default "2.5.0" (by Athens-RELEASE)
 
     dependencyManagement {
         imports {
