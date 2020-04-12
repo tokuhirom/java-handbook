@@ -74,7 +74,6 @@ subprojects {
 }
 
 configurations {
-    compile.exclude module: "spring-boot-starter-tomcat"
     compile.exclude module: "commons-logging"
     compile.exclude group: "junit"
     compile.exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
