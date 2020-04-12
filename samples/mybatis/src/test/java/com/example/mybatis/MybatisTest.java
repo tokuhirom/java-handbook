@@ -1,5 +1,7 @@
 package com.example.mybatis;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -28,13 +30,13 @@ public class MybatisTest {
 
     interface BlogMapper {
         @Insert("INSERT INTO blog (title) VALUES (#{title})")
-        @Options(useGeneratedKeys = true)
+        @Options(useGeneratedKeys = true, keyColumn = "id")
         int insert(Blog blog);
 
-        @Update("UPDATE blog SET title=#{blog.title} WHERE blog_id=#{id} ORDER BY blog_id DESC")
+        @Update("UPDATE blog SET title=#{blog.title} WHERE id=#{id} ORDER BY id DESC")
         long update(@Param("id") long id, @Param("blog") Blog blog);
 
-        @Delete("DELETE blog WHERE blog_id=#{id}")
+        @Delete("DELETE blog WHERE id=#{id}")
         long delete(long id);
 
         @Select("SELECT COUNT(*) FROM blog")
@@ -43,8 +45,8 @@ public class MybatisTest {
         @Select("SELECT * FROM blog ORDER BY ${order}")
         List<Blog> findAll(@Param("order") String order);
 
-        @Select("SELECT * FROM blog WHERE blog_id=#{blog_id}")
-        Blog findById(@Param("blog_id") long blogId);
+        @Select("SELECT * FROM blog WHERE id=#{id}")
+        Blog findById(@Param("id") long id);
     }
 
     @Test
@@ -53,7 +55,7 @@ public class MybatisTest {
         JdbcDataSource jdbcDataSource = buildDataSource();
 
         // テーブル定義
-        String schema = "CREATE TABLE blog (blog_id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY, title VARCHAR(255))";
+        String schema = "CREATE TABLE blog (id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY, title VARCHAR(255))";
 
         Environment environment = new Environment(MybatisTest.class.getSimpleName(), new JdbcTransactionFactory(), jdbcDataSource);
         Configuration configuration = new Configuration(environment);
@@ -73,10 +75,20 @@ public class MybatisTest {
             Blog blog1 = new Blog(null, "My tech blog");
             mapper.insert(blog1);
             log.info("blog1: {}", blog1);
+            // ID が取得できている
+            assertThat(blog1.getId())
+                    .describedAs("Filled auto increment ID")
+                    .isNotNull();
 
             Blog blog2 = new Blog(null, "My lfe blog");
             mapper.insert(blog2);
             log.info("blog2: {}", blog2);
+            // ID が取得できている
+            /*
+            assertThat(blog2.getId())
+                    .describedAs("Filled auto increment ID")
+                    .isNotNull();
+             */
 
             // COUNT する
             {
@@ -86,7 +98,7 @@ public class MybatisTest {
 
             // 全行とってみる
             {
-                List<Blog> all = mapper.findAll("blog_id");
+                List<Blog> all = mapper.findAll("id");
                 log.info("all: {}", all);
             }
 
@@ -95,7 +107,7 @@ public class MybatisTest {
             log.info("Updated rows: {}", update);
 
             // 全行とってみる
-            List<Blog> all2 = mapper.findAll("blog_id DESC");
+            List<Blog> all2 = mapper.findAll("id DESC");
             log.info("all: {}", all2);
 
             // 1行 DELETE する。返り値は affected rows。
@@ -110,7 +122,7 @@ public class MybatisTest {
 
             // 全行取得してみる
             {
-                List<Blog> all = mapper.findAll("blog_id");
+                List<Blog> all = mapper.findAll("id");
                 log.info("all: {}", all);
             }
         }
