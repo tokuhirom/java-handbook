@@ -34,7 +34,6 @@ allprojects {
 
     ext['okhttp3.version'] = '3.4.1' // Update from Spring IO default "3.3.1" (by Athens-RELEASE)
     ext['assetj.version'] = '3.5.2' // Update from Spring IO default "2.5.0" (by Athens-RELEASE)
-    ext['lombok.version'] = '1.16.10'
 
     dependencyManagement {
         imports {
@@ -47,7 +46,6 @@ allprojects {
             dependency 'org.webjars.npm:bootstrap:3.3.5'
             dependency "com.squareup.okhttp3:mockwebserver:" + ext['okhttp3.version']
             dependency 'com.github.jbellis:jamm:0.3.1'
-            dependency 'org.projectlombok:lombok:' + ext['lombok.version']
         }
     }
 }
