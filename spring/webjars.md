@@ -6,8 +6,8 @@ npm のファイルを jar でまとめたものが配布されています。
 
 ```groovy
 dependencies {
-  # Twitter bootstrap です。
-  compile 'org.webjars.npm:bootstrap:3.3.5'
+  // Twitter bootstrap です。
+  compile 'org.webjars.npm:bootstrap:4.4.1'
 }
 ```
 
