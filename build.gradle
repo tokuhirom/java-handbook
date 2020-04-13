@@ -36,7 +36,7 @@ allprojects {
 
     dependencyManagement {
         imports {
-            mavenBom 'io.spring.platform:platform-bom:Athens-RELEASE'
+            mavenBom 'io.spring.platform:platform-bom:2.0.8.RELEASE'
         }
 
         dependencies {
