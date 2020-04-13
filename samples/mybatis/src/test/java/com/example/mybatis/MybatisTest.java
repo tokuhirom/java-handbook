@@ -30,7 +30,7 @@ public class MybatisTest {
 
     interface BlogMapper {
         @Insert("INSERT INTO blog (title) VALUES (#{title})")
-        @Options(useGeneratedKeys = true, keyColumn = "id")
+        @Options(useGeneratedKeys = true, keyColumn = "id", keyProperty = "id")
         int insert(Blog blog);
 
         @Update("UPDATE blog SET title=#{blog.title} WHERE id=#{id} ORDER BY id DESC")

@@ -39,7 +39,7 @@ interface を定義し、アノテーションを記述していきます。
 ```java
 interface BlogMapper {
     @Insert("INSERT INTO blog (title) VALUES (#{title})")
-    @Options(useGeneratedKeys = true)
+    @Options(useGeneratedKeys = true, keyProperty="id")
     int insert(Blog blog);
 
     @Update("UPDATE blog SET title=#{blog.title} WHERE id=#{id}")
