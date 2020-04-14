@@ -1,8 +1,5 @@
 package com.example;
 
-import jdk.nashorn.internal.ir.annotations.Ignore;
-import lombok.NonNull;
-
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -11,6 +8,10 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import org.junit.jupiter.api.Test;
+
+import com.google.common.annotations.VisibleForTesting;
+
+import lombok.NonNull;
 
 public class ReflectionDemo {
     @Test
@@ -84,7 +85,7 @@ public class ReflectionDemo {
         private String privateField;
         public String publicField;
 
-        @Ignore
+        @VisibleForTesting
         public String publicMethod(@NonNull String name) {
             return "Hello, " + name.toUpperCase();
         }

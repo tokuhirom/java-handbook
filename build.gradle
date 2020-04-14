@@ -36,7 +36,7 @@ allprojects {
 
     dependencyManagement {
         imports {
-            mavenBom 'io.spring.platform:platform-bom:Athens-RELEASE'
+            mavenBom(org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES)
         }
 
         dependencies {
@@ -45,6 +45,7 @@ allprojects {
             dependency 'org.webjars.npm:bootstrap:4.4.1'
             dependency "com.squareup.okhttp3:mockwebserver:" + ext['okhttp3.version']
             dependency 'com.github.jbellis:jamm:0.3.1'
+            dependency 'com.google.guava:guava:29.0-jre'
         }
     }
 }

@@ -32,7 +32,7 @@ public static class MyClass {
     private String privateField;
     public String publicField;
 
-    @Ignore
+    @VisibleForTesting
     public String publicMethod(@NonNull String name) {
         return "Hello, " + name.toUpperCase();
     }
@@ -103,7 +103,7 @@ public class MyClass {
     private String privateField;
     public String publicField;
 
-    @Ignore
+    @VisibleForTesting
     public String publicMethod(@NonNull String name) {
         return "Hello, " + name.toUpperCase();
     }
