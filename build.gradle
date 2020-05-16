@@ -32,7 +32,7 @@ allprojects {
         options.encoding = 'UTF-8'
     }
 
-    ext['okhttp3.version'] = '3.4.1' // Update from Spring IO default "3.3.1" (by Athens-RELEASE)
+    ext['okhttp3.version'] = '4.6.0'
 
     dependencyManagement {
         imports {
