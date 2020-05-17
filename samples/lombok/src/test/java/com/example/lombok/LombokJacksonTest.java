@@ -1,22 +1,23 @@
 package com.example.lombok;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.BeanDescription;
-import com.fasterxml.jackson.databind.JavaType;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.introspect.BeanPropertyDefinition;
-import lombok.Value;
-
 import java.io.IOException;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.BeanDescription;
+import com.fasterxml.jackson.databind.JavaType;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.introspect.BeanPropertyDefinition;
+
+import lombok.Data;
+
 public class LombokJacksonTest {
-    @Value
+    @Data
     public static class Foo {
         @JsonProperty("foo_id")
-        private final String fooId;
+        private String fooId;
     }
 
     @Test
