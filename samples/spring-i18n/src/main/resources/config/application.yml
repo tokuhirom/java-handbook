@@ -7,6 +7,9 @@
 # メッセージリソースのファイル名をデフォルトの `src/main/resources/messages_ja.properties` から
 # `src/main/resources/i18n/messages_ja.properties` に変更する。
 spring.messages.basename: i18n/messages
+spring:
+  config:
+    use-legacy-processing: true
 
 # ---------------------------------------------------------------------------------------------------------------------
 #
