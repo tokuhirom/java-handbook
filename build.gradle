@@ -42,7 +42,7 @@ allprojects {
         dependencies {
             dependency 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.2.0'
             dependency 'org.mybatis:mybatis-typehandlers-jsr310:1.0.2'
-            dependency 'org.webjars.npm:bootstrap:5.0.2'
+            dependency 'org.webjars.npm:bootstrap:5.1.1'
             dependency "com.squareup.okhttp3:mockwebserver:" + ext['okhttp3.version']
             dependency 'com.github.jbellis:jamm:0.3.3'
             dependency 'com.google.guava:guava:30.1.1-jre'
