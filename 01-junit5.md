@@ -41,9 +41,9 @@ repositories {
 }
 
 dependencies {
-    testCompile 'org.assertj:assertj-core:3.5.2'
+    testImplementation 'org.assertj:assertj-core:3.5.2'
 
-    testCompile("org.junit.jupiter:junit-jupiter-api:${junitJupiterVersion}")
+    testImplementation("org.junit.jupiter:junit-jupiter-api:${junitJupiterVersion}")
     testRuntime("org.junit.jupiter:junit-jupiter-engine:${junitJupiterVersion}")
 }
 ```

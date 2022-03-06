@@ -19,7 +19,7 @@ buildscript {
 }
 
 dependencies {
-  compile('org.springframework.boot:spring-boot-starter-freemarker')
+  implementation('org.springframework.boot:spring-boot-starter-freemarker')
 }
 ```
 

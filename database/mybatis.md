@@ -235,7 +235,7 @@ JSR 310 の新しい日時クラスにマッピングする機能が mybatis cor
 
 以下のように依存を入れておけばよいです。
 
-    compile 'org.mybatis:mybatis-typehandlers-jsr310:1.0.1'
+    implementation 'org.mybatis:mybatis-typehandlers-jsr310:1.0.1'
 
 ## FAQ
 

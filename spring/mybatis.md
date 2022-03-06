@@ -6,8 +6,8 @@ build.gradle に以下のように依存を記述します(最新版使わない
 
 ```groovy
 dependencies {
-    compile 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.1.2'
-    compile 'org.mybatis:mybatis-typehandlers-jsr310:1.0.2'
+    implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.1.2'
+    implementation 'org.mybatis:mybatis-typehandlers-jsr310:1.0.2'
 }
 ```
 

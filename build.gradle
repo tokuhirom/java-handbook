@@ -71,7 +71,7 @@ subprojects {
 }
 
 configurations {
-    compile.exclude module: "commons-logging"
-    compile.exclude group: "junit"
-    compile.exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+    implementation.exclude module: "commons-logging"
+    implementation.exclude group: "junit"
+    implementation.exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
 }
