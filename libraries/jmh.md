@@ -8,8 +8,8 @@ ref. http://openjdk.java.net/projects/code-tools/jmh/
 
 ```groovy
 dependencies {
-  compile 'org.openjdk.jmh:jmh-core:1.14.1'
-  compile 'org.openjdk.jmh:jmh-generator-annprocess:1.14.1'
+  implementation 'org.openjdk.jmh:jmh-core:1.14.1'
+  implementation 'org.openjdk.jmh:jmh-generator-annprocess:1.14.1'
 }
 ```
 

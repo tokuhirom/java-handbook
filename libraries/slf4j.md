@@ -34,7 +34,7 @@ java.util.logging は java 1.4 の時代に導入され、ロガー界を統一�
 #### slf4j-simple
  
 slf4j-simple はその名の通り、シンプルなログ出力ライブラリです。
-主に、slf4j 使っているクラスのテスト時に testCompile で依存にいれるのに利用します。
+主に、slf4j 使っているクラスのテスト時に testImplementation で依存にいれるのに利用します。
 
 細かい設定はできませんが、入れるだけで STDERR にログを出力できます。
 

@@ -1,6 +1,6 @@
 apply plugin: 'java'
 
 dependencies {
-    compile 'com.github.jbellis:jamm'
-    compile 'com.google.guava:guava'
+    implementation 'com.github.jbellis:jamm'
+    implementation 'com.google.guava:guava'
 }

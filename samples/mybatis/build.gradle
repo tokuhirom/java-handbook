@@ -1,13 +1,13 @@
 apply plugin: 'java'
 
 dependencies {
-    compile 'com.google.guava:guava'
-    compile 'org.mybatis:mybatis-typehandlers-jsr310'
-    compile 'org.mybatis.spring.boot:mybatis-spring-boot-starter'
-    compile 'com.h2database:h2'
+    implementation 'com.google.guava:guava'
+    implementation 'org.mybatis:mybatis-typehandlers-jsr310'
+    implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter'
+    implementation 'com.h2database:h2'
 
-    testCompile 'org.mockito:mockito-core'
-    testCompile 'org.assertj:assertj-core'
+    testImplementation 'org.mockito:mockito-core'
+    testImplementation 'org.assertj:assertj-core'
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.8.2")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.7.2")
 }

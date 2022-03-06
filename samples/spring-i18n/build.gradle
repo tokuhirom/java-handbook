@@ -2,9 +2,9 @@ apply plugin: 'java'
 apply plugin: 'org.springframework.boot'
 
 dependencies {
-    compile 'com.google.guava:guava'
-    compile 'org.springframework.boot:spring-boot-starter-freemarker'
-    compile 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'com.google.guava:guava'
+    implementation 'org.springframework.boot:spring-boot-starter-freemarker'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
 
-    testCompile 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
