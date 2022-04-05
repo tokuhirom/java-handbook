@@ -58,7 +58,7 @@ public class Benchmark {
             try (URLClassLoader classLoader = new URLClassLoader(cp,
                     ClassLoader.getSystemClassLoader())) {
                 Class<?> targetClass = classLoader.loadClass(args[0]);
-                Object suite = targetClass.newInstance();
+                Object suite = targetClass.getDeclaredConstructor().newInstance();
                 Benchmark benchmark = new Benchmark(suite);
                 benchmark.runByTime(1).timethese().cmpthese();
             }
