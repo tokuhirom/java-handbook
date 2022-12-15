@@ -40,7 +40,7 @@ allprojects {
         }
 
         dependencies {
-            dependency 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.3.0'
+            dependency 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.0'
             dependency 'org.mybatis:mybatis-typehandlers-jsr310:1.0.2'
             dependency 'org.webjars.npm:bootstrap:5.2.3'
             dependency "com.squareup.okhttp3:mockwebserver:" + ext['okhttp3.version']
