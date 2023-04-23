@@ -32,7 +32,7 @@ allprojects {
         options.encoding = 'UTF-8'
     }
 
-    ext['okhttp3.version'] = '4.10.0'
+    ext['okhttp3.version'] = '4.11.0'
 
     dependencyManagement {
         imports {
