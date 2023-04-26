@@ -1,9 +1,9 @@
 apply plugin: 'java'
 
 dependencies {
-    testImplementation("org.junit.jupiter:junit-jupiter-api:5.9.2")
+    testImplementation("org.junit.jupiter:junit-jupiter-api:5.9.3")
     testImplementation 'com.google.guava:guava'
-    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.9.2")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.9.3")
 }
 
 compileJava {
