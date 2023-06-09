@@ -45,7 +45,7 @@ allprojects {
             dependency 'org.webjars.npm:bootstrap:5.3.0'
             dependency "com.squareup.okhttp3:mockwebserver:" + ext['okhttp3.version']
             dependency 'com.github.jbellis:jamm:0.3.3'
-            dependency 'com.google.guava:guava:32.0.0-jre'
+            dependency 'com.google.guava:guava:32.0.1-jre'
         }
     }
 }
