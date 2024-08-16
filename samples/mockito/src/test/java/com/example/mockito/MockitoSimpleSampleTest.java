@@ -56,13 +56,19 @@ public class MockitoSimpleSampleTest {
 
     @Test
     public void testSpy() throws Exception {
-        // Dog クラスをspyにする
-        ArrayList<String> list = Mockito.spy(new ArrayList<>());
+        // Cat クラスをspyにする
+        Cat cat = Mockito.spy(new Cat());
 
         // add メソッドを呼んでみる
-        list.add("hoge");
+        cat.meow("hoge");
 
         // そのメソッドが実際に呼ばれたかどうかを確認する
-        verify(list).add("hoge");
+        verify(cat).meow("hoge");
+    }
+
+    public static class Cat {
+        public void meow(String str) {
+            System.out.println("add: " + str);
+        }
     }
 }
