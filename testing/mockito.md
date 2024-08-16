@@ -105,14 +105,14 @@ mockito により発生する NullPointerException は発見が困難なので�
 
 `verify()`　メソッドは `mock()` で作成されたオブジェクトでも利用できます。 
 
-    // Dog クラスをspyにする
-    ArrayList<String> list = Mockito.spy(new ArrayList<>());
+    // Cat クラスをspyにする
+    Cat cat = Mockito.spy(new Cat());
 
     // add メソッドを呼んでみる
-    list.add("hoge");
+    cat.meow("hoge");
 
     // そのメソッドが実際に呼ばれたかどうかを確認する
-    verify(list).add("hoge");
+    verify(cat).meow("hoge");
 
 ## 返り値が void なメソッドの挙動を設定する
 
