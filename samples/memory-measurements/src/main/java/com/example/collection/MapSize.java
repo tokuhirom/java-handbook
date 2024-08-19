@@ -34,7 +34,7 @@ public class MapSize {
     }
 
     private void calcAndPrintSize(Object o) {
-        MemoryMeter memoryMeter = new MemoryMeter();
+        MemoryMeter memoryMeter = MemoryMeter.builder().build();
         long objectSize = memoryMeter.measure(o);
         long objectSizeDeep = memoryMeter.measureDeep(o);
         System.out.printf("%-15s: %-10s %-10s\n",
