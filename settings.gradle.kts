@@ -10,5 +10,14 @@ include("samples:spring-freemarker")
 include("samples:spring-i18n")
 
 includeBuild("collection/collections")
+
+includeBuild("database/mybatis")
+
+includeBuild("libraries/guava")
+includeBuild("libraries/jackson")
+includeBuild("libraries/lombok")
+
+includeBuild("metaprogramming/reflection")
+
 includeBuild("testing/junit5")
 includeBuild("testing/mockito")
