@@ -32,7 +32,7 @@ public class ListSize {
     }
 
     private void calcAndPrintSize(Object o) {
-        MemoryMeter memoryMeter = new MemoryMeter();
+        MemoryMeter memoryMeter = MemoryMeter.builder().build();
         long objectSize = memoryMeter.measure(o);
         long objectSizeDeep = memoryMeter.measureDeep(o);
         System.out.printf("%-30s: %-10s %-10s\n",
