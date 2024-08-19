@@ -56,8 +56,8 @@ export default defineConfig({
       {
         text: 'テストツール',
         items: [
-          { text: 'JUnit 5', link: '/01-junit5' },
           { text: 'JUnit', link: '/testing/junit' },
+          { text: 'JUnit 5', link: '/testing/junit5/' },
           { text: 'Mockito', link: '/testing/mockito' },
           { text: 'MockWebServer', link: '/testing/mockwebserver' },
         ]
