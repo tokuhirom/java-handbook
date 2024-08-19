@@ -8,3 +8,5 @@
 /samples/*/out/
 /.vitepress/cache/
 node_modules
+.gradle/
+build/
