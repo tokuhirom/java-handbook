@@ -3,17 +3,19 @@ plugins {
 }
 
 dependencies {
-    testImplementation("org.junit.jupiter:junit-jupiter-api:5.9.3")
+    testImplementation("org.junit.jupiter:junit-jupiter-api:5.11.0")
     testImplementation("com.google.guava:guava")
-    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.9.3")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.11.0")
 }
 
 tasks.compileJava {
-    options.compilerArgs.addAll(listOf(
+    options.compilerArgs.addAll(
+        listOf(
             "-Werror",
             "-Xlint:all",
             "-Xlint:-processing", // Don't fail for annotations not claimed by annotation processors.
             "-Xlint:-serial", // Don't fail for serialVersionUID warnings.
-            "-parameters" // Capture method parameter names in classfiles.
-    ))
+            "-parameters", // Capture method parameter names in classfiles.
+        ),
+    )
 }
