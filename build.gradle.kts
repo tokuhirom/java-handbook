@@ -40,7 +40,7 @@ allprojects {
             dependency("org.mybatis:mybatis-typehandlers-jsr310:1.0.2")
             dependency("org.webjars.npm:bootstrap:5.3.3")
             dependency("com.squareup.okhttp3:mockwebserver:$okhttp3Version")
-            dependency("com.github.jbellis:jamm:0.3.3")
+            dependency("com.github.jbellis:jamm:0.4.0")
             dependency("com.google.guava:guava:33.3.0-jre")
         }
     }
