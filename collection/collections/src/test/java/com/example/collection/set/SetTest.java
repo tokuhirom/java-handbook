@@ -20,13 +20,13 @@ public class SetTest {
                 .add("X")
                 .add("P")
                 .build();
-        System.out.println(build.toString());
+        System.out.println(build);
     }
 
     @Test
     public void testOf() {
         ImmutableSet<Object> build = ImmutableSet.of("A", "X", "P");
-        System.out.println(build.toString());
+        System.out.println(build);
     }
 
     @Test
@@ -41,8 +41,8 @@ public class SetTest {
     public void stream() {
         Set<String> build = Stream.of("A", "X", "P")
                 .collect(Collectors.toSet());
-        System.out.println(build.getClass().toString());
-        System.out.println(build.toString());
+        System.out.println(build.getClass());
+        System.out.println(build);
     }
 
     @Test

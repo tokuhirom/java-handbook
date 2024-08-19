@@ -1,4 +1,3 @@
-include("samples:collections")
 include("samples:guava")
 include("samples:jackson")
 include("samples:jmh")
@@ -10,4 +9,6 @@ include("samples:memory-measurements")
 include("samples:benchmarks")
 include("samples:spring-freemarker")
 include("samples:spring-i18n")
+
+includeBuild("collection/collections")
 includeBuild("testing/junit5")
