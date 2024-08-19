@@ -10,3 +10,14 @@ dependencies {
 
     testImplementation("org.springframework.boot:spring-boot-starter-test")
 }
+
+tasks.test {
+    useJUnitPlatform()
+
+    // Configure test logging to show results in stdout
+    testLogging {
+        events("passed", "skipped", "failed")
+        // Optionally include more detailed logs
+        showStandardStreams = true
+    }
+}
