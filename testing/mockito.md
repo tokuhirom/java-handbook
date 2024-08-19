@@ -309,7 +309,7 @@ public class MockitoConfiguration extends DefaultMockitoConfiguration {
 DefaultMockitoConfiguration で、例外投げるやつを設定すればよいでしょう。
 ↓↓ TODO:: 動作未確認
 
-```
+```java
 package org.mockito.configuration;
 
 import org.mockito.stubbing.Answer;

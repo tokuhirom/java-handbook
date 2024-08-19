@@ -1,7 +1,7 @@
 # webjars
 
 npm のファイルを jar でまとめたものが配布されています。
-これを利用すると、twitter bootstrap 等を build.gradle に依存追加するだけで使えます。
+これを利用すると、twitter bootstrap 等を build.gradle.kts に依存追加するだけで使えます。
 便利〜
 
 ```groovy

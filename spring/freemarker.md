@@ -5,21 +5,19 @@ freemarker は人気がある Java の template engine です。
 
 freemarker を spring-boot で利用するには以下のように依存を追加します。
 
-```groovy
-buildscript {
-    ext {
-        springBootVersion = '2.2.6.RELEASE'
-    }
-    repositories {
-        mavenCentral()
-    }
-    dependencies {
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
-    }
+```kotlin
+plugins {
+    id("java")
+    id("org.springframework.boot") version "2.7.18"
 }
 
 dependencies {
-  implementation('org.springframework.boot:spring-boot-starter-freemarker')
+    implementation("com.google.guava:guava")
+    implementation("org.springframework.boot:spring-boot-starter-freemarker")
+    implementation("org.springframework.boot:spring-boot-starter-web")
+    implementation("org.webjars.npm:bootstrap")
+
+    testImplementation("org.springframework.boot:spring-boot-starter-test")
 }
 ```
 

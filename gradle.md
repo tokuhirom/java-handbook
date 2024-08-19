@@ -20,18 +20,19 @@ build.gradle がメインの設定ファイルであり、settings.gradle はサ
 
 以下のように設定可能です。
 
-```groovy
-apply plugin: 'java'
+```kotlin
+plugins {
+    id("java")
+}
 
-compileJava {
-  options.compilerArgs << '-Werror'
-  options.compilerArgs << '-Xlint:all'
-  // Don't fail for annotations not claimed by annotation processors.
-  options.compilerArgs << '-Xlint:-processing'
-  // Don't fail for serialVersionUID warnings.
-  options.compilerArgs << '-Xlint:-serial'
-  // Capture method parameter names in classfiles.
-  options.compilerArgs << '-parameters'
+tasks.compileJava {
+    options.compilerArgs.addAll(listOf(
+        "-Werror",
+        "-Xlint:all",
+        "-Xlint:-processing", // Don't fail for annotations not claimed by annotation processors.
+        "-Xlint:-serial", // Don't fail for serialVersionUID warnings.
+        "-parameters" // Capture method parameter names in classfiles.
+    ))
 }
 ```
 
