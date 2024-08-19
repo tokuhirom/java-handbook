@@ -14,16 +14,8 @@ export default defineConfig({
 
     sidebar: [
       {
-        text: 'Introduction',
-        items: [
-          { text: 'IntelliJ について', link: '/00-intellij' },
-          { text: 'JUnit 5', link: '/01-junit5' },
-        ]
-      },
-      {
         text: 'Javaの基本',
         items: [
-          { text: 'Ant', link: '/ant' },
           { text: 'コレクション', items: [
               { text: 'List', link: '/collection/list' },
               { text: 'Map', link: '/collection/map' },
@@ -38,12 +30,6 @@ export default defineConfig({
           { text: 'H2', link: '/database/h2' },
           { text: 'MyBatis', link: '/database/mybatis' },
           { text: 'MySQL Connector/J', link: '/database/mysql' },
-        ]
-      },
-      {
-        text: 'ビルドツール',
-        items: [
-          { text: 'Gradle', link: '/gradle' },
         ]
       },
       {
@@ -68,6 +54,34 @@ export default defineConfig({
         ]
       },
       {
+        text: 'テストツール',
+        items: [
+          { text: 'JUnit 5', link: '/01-junit5' },
+          { text: 'JUnit', link: '/testing/junit' },
+          { text: 'Mockito', link: '/testing/mockito' },
+          { text: 'MockWebServer', link: '/testing/mockwebserver' },
+        ]
+      },
+      {
+        text: 'IDE',
+        items: [
+          { text: 'IntelliJ について', link: '/00-intellij' },
+        ]
+      },
+      {
+        text: 'ビルドツール',
+        items: [
+          { text: 'Ant', link: '/ant' },
+          { text: 'Gradle', link: '/gradle' },
+        ]
+      },
+      {
+        text: 'ツール',
+        items: [
+          { text: 'VisualVM', link: '/tools/visualvm' },
+        ]
+      },
+      {
         text: 'Spring関連',
         items: [
           { text: '設定ファイルの記述方法', link: '/spring/config' },
@@ -78,20 +92,6 @@ export default defineConfig({
           { text: 'WebJars', link: '/spring/webjars' },
         ]
       },
-      {
-        text: 'テストツール',
-        items: [
-          { text: 'JUnit', link: '/testing/junit' },
-          { text: 'Mockito', link: '/testing/mockito' },
-          { text: 'MockWebServer', link: '/testing/mockwebserver' },
-        ]
-      },
-      {
-        text: 'ツール',
-        items: [
-          { text: 'VisualVM', link: '/tools/visualvm' },
-        ]
-      }
     ],
 
     socialLinks: [
