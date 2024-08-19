@@ -1,0 +1,19 @@
+{
+  "name": "kotlin-js-demos",
+  "version": "1.0.0",
+  "description": "Java 用の便利情報です",
+  "main": "index.js",
+  "scripts": {
+    "docs:dev": "vitepress dev",
+    "docs:build": "vitepress build",
+    "docs:serve": "vitepress serve",
+    "docs:preview": "vitepress preview"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "vitepress": "^1.3.2",
+    "vue": "^3.4.37"
+  }
+}

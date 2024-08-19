@@ -6,3 +6,5 @@
 /classes
 /samples/build/
 /samples/*/out/
+/.vitepress/cache/
+node_modules
