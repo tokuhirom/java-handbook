@@ -2,7 +2,7 @@ import { defineConfig } from 'vitepress'
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
-  base: '/kotlin-js-samples/',
+  base: '/java-handbook/',
   title: "Kotlin JS Samples",
   description: "Sample code for Kotlin/JS",
   ignoreDeadLinks: 'localhostLinks',
@@ -95,7 +95,7 @@ export default defineConfig({
     ],
 
     socialLinks: [
-      { icon: 'github', link: 'https://github.com/tokuhirom/kotlin-js-samples/' }
+      { icon: 'github', link: 'https://github.com/tokuhirom/java-handbook/' }
     ]
   }
 })
