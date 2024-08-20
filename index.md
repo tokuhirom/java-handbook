@@ -9,7 +9,7 @@ hero:
     actions:
       - theme: brand
         text: IntelliJ について
-        link: /00-intellij
+        link: /ide/00-intellij
 
 features: []
 ---
