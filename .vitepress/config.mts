@@ -65,7 +65,7 @@ export default defineConfig({
       {
         text: 'IDE',
         items: [
-          { text: 'IntelliJ について', link: '/00-intellij' },
+          { text: 'IntelliJ について', link: '/ide/00-intellij' },
         ]
       },
       {
