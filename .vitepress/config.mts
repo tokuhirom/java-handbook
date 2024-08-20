@@ -14,6 +14,12 @@ export default defineConfig({
 
     sidebar: [
       {
+        text: 'はじめに',
+        items: [
+          { text: 'Java の最初に', link: '/intro/' },
+        ]
+      },
+      {
         text: 'Javaの基本',
         items: [
           { text: 'コレクション', items: [
