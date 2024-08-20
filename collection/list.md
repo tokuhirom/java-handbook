@@ -7,37 +7,13 @@ Java には基本的な型として配列もありますが、サイズ変更が
 
 ## List の構築
 
-ざっくりいうと: *null の心配がないなら guava の ImmutableList 使おう*
+<<<collections/src/test/java/com/example/collection/ListsTest.java{java}
 
-### guava の ImmutableList
+Java 9 以後では `List.of` がつかえるので、固定の長さのリストを作成する場合にはこれを利用すると良いでしょう。
 
-とにかく変更されない List を作りたいぞ！という時には、Google guava には ImmutableList の実装がありますので、こちらを利用しましょう。変更できないので *マルチスレッドで共有しても安心* です。
+### `Arrays.asList` による Array の構築
 
-なお、guava の ImmutableList は、*null を入れることができません*。null を入れようとすると NullPointerException が発生しますのでご注意ください。
-
-```java
-// 空の immutable list を作成
-ImmutableList<Object> of = ImmutableList.of();
-
-// 幾つかの要素を含む Immutable list を作成
-ImmutableList<Integer> of1 = ImmutableList.of(1, 2, 3);
-
-// いっぱい入った immutable list をビルダー経由で作成
-ImmutableList<Object> build = ImmutableList.builder()
-        .add(1)
-        .add(2)
-        .add(3)
-        .addAll(of1)
-        .build();
-```
-
-guava の `ImmutableList.of()` を0引数で呼び出した場合には、global 変数で保持されている RegularImmutableList.EMPTY が返却されます。1引数の場合は SingletonImmutableList のインスタンスが返されます。
-
-### Java 標準メソッドによる List の構築
-
-#### `Arrays.asList` による Array の構築
-
-List の構築には `Arrays.asList` を利用します。
+List の構築には `Arrays.asList` を利用することもできます
 
 ```java
 List<Integer> integers = Arrays.asList(1, 2, 3);
@@ -52,7 +28,9 @@ Integer[] integers1 = {
 List<Integer> integers2 = Arrays.asList(integers1);
 ```
 
-リスト構築用によく使われていますが、このメソッドのもともとの意味は「配列に対してアクセスする List インターフェースビューの生成」であることに注意してください。配列に対して List インターフェースでアクセス出来るので、この List にたいして変更を行った場合は配列の側にも反映されます。Java の配列は固定サイズなのでこのメソッドから得られた List も固定サイズです。
+リスト構築用によく使われていますが、このメソッドのもともとの意味は「配列に対してアクセスする List インターフェースビューの生成」であることに注意してください。
+配列に対して List インターフェースでアクセス出来るので、この List にたいして変更を行った場合は配列の側にも反映されます。
+Java の配列は固定サイズなのでこのメソッドから得られた List も固定サイズです。
 
 極めて紛らわしいのですが、このメソッドが返すリストは、`java.util.ArrayList` ではなく Arrays.asList 専用の `java.util.Arrays.ArrayList` であることに注意してください。同じ ArrayList という名前ですが実装がだいぶ違います。
 
@@ -99,15 +77,14 @@ public List<ValueHint> getValues() {
 List へのアクセスを複数のスレッドから同時に行うことはできません。
 List をマルチスレッドで共有して、なおかつ変更したい場合には `Collections.syncrhonizedList()`　を利用できる場合があります。synchronizedList で得られるリストは操作ごとにロックをとるようになります。しかし、ロックを取る分すべての操作が遅くなります。
 
-```java
-List list = Collections.synchronizedList(new ArrayList(...));
-```
-
 synchronizedList は個々のメソッドは複数のスレッドからのメソッド呼び出しは安全ですが、複数のメソッドの呼び出しの間で保護されているわけではないので、気をつけて使う必要があります。
 
 ```java
-if (!list.contains(a)) {
-  list.add(a);
+public static void addIfAbsent(List list, Object a) {
+    List list = Collections.synchronizedList(List.of(1, 2, 3));
+    if (!list.contains(a)) {
+        list.add(a);
+    }
 }
 ```
 
@@ -520,3 +497,12 @@ ArrayList と LinkedList との比較では 1要素あたり 20 バイト程度�
 
 基本的には、List で実装して、パフォーマンスの問題が発覚した場合に、プロファイリングしてリストがボトルネックだと判明してから配列の採用を
 検討するぐらいで良いかと思います。
+
+### Guava の ImmutableMap ってどうですか?
+
+guava の ImmutableList は、*null を入れることができません*。
+null を入れようとすると NullPointerException が発生しますのでご注意ください。
+
+結果として、null safety を目指すライブラリであるはずが、意図せぬ NullPointerException を生む結果となることがあります。
+
+個人的には Java 9 以後であれば `List.of` が使えるので、これを使えば十分だと考えています。
