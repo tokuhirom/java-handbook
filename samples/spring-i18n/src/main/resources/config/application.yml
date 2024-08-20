@@ -7,9 +7,8 @@
 # メッセージリソースのファイル名をデフォルトの `src/main/resources/messages_ja.properties` から
 # `src/main/resources/i18n/messages_ja.properties` に変更する。
 spring.messages.basename: i18n/messages
-spring:
-  config:
-    use-legacy-processing: true
+spring.profiles:
+  default: local
 
 # ---------------------------------------------------------------------------------------------------------------------
 #
@@ -18,16 +17,19 @@ spring:
 # ---------------------------------------------------------------------------------------------------------------------
 
 ---
-spring.profiles: default
-spring.profiles.active: local
+spring:
+    config:
+        activate:
+          on-profile: local
+        import:
+          - classpath:config/application-logging-devel.yml
+          - classpath:config/application-freemarker-devel.yml
+          - classpath:config/application-freemarker-common.yml
 ---
-spring.profiles: local
-spring.profiles.include:
-  - logging-devel
-  - freemarker-devel
-  - freemarker-common
----
-spring.profiles: release
-spring.profiles.include:
-  - freemarker-release
-  -  freemarker-common
+spring:
+  config:
+    activate:
+      on-profile: release
+    import:
+      - classpath:config/application-freemarker-release.yml
+      - classpath:config/application-freemarker-common.yml
