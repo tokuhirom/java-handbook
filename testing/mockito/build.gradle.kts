@@ -7,7 +7,7 @@ repositories {
 }
 
 dependencies {
-    implementation("com.google.guava:guava:33.3.0-jre")
+    implementation("com.google.guava:guava:33.3.1-jre")
 
     testImplementation("org.mockito:mockito-core:5.13.0")
     testImplementation("org.mockito:mockito-junit-jupiter:5.13.0")
