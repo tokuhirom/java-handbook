@@ -14,7 +14,7 @@ dependencies {
 
     implementation("com.google.guava:guava:33.3.1-jre")
     implementation("org.mybatis:mybatis-typehandlers-jsr310:1.0.2")
-    implementation("org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.3")
+    implementation("org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.4")
     implementation("com.h2database:h2:2.3.232")
 
     testImplementation("org.mockito:mockito-core:5.14.2")
