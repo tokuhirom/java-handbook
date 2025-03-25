@@ -11,7 +11,7 @@ dependencies {
     testAnnotationProcessor("org.projectlombok:lombok:1.18.36")
 
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.12.1")
-    testImplementation("com.google.guava:guava:33.4.5-jre")
+    testImplementation("com.google.guava:guava:33.4.6-jre")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.12.1")
 }
 
