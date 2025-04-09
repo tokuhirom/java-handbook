@@ -7,7 +7,7 @@ repositories {
 }
 
 dependencies {
-    implementation("com.google.guava:guava:33.4.7-android")
+    implementation("com.google.guava:guava:33.4.7-jre")
 
     testImplementation("org.mockito:mockito-core:5.17.0")
     testImplementation("org.mockito:mockito-junit-jupiter:5.17.0")
