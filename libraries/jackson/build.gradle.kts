@@ -13,7 +13,7 @@ dependencies {
     testAnnotationProcessor("org.projectlombok:lombok:1.18.38")
 
     implementation("com.fasterxml.jackson.core:jackson-databind:2.18.3")
-    implementation("com.fasterxml.jackson.core:jackson-core:2.18.3")
+    implementation("com.fasterxml.jackson.core:jackson-core:2.19.0")
 
     testImplementation("org.assertj:assertj-core:3.27.3")
     testImplementation("org.springframework.boot:spring-boot-starter-test:3.4.5") // TODO remove?
