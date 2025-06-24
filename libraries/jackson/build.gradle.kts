@@ -20,5 +20,5 @@ dependencies {
     testImplementation("org.springframework.boot:spring-boot-starter-logging:3.5.3") // TODO remove?
 
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.13.2")
-    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.13.1")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.13.2")
 }
