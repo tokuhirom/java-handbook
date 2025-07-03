@@ -32,7 +32,7 @@ allprojects {
         options.encoding = "UTF-8"
     }
 
-    val okhttp3Version by extra("4.12.0")
+    val okhttp3Version by extra("5.0.0")
 
     dependencyManagement {
         imports {
