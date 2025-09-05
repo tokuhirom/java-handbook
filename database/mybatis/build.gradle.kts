@@ -7,10 +7,10 @@ repositories {
 }
 
 dependencies {
-    compileOnly("org.projectlombok:lombok:1.18.38")
-    annotationProcessor("org.projectlombok:lombok:1.18.38")
-    testCompileOnly("org.projectlombok:lombok:1.18.38")
-    testAnnotationProcessor("org.projectlombok:lombok:1.18.38")
+    compileOnly("org.projectlombok:lombok:1.18.40")
+    annotationProcessor("org.projectlombok:lombok:1.18.40")
+    testCompileOnly("org.projectlombok:lombok:1.18.40")
+    testAnnotationProcessor("org.projectlombok:lombok:1.18.40")
 
     implementation("com.google.guava:guava:33.4.8-jre")
     implementation("org.mybatis:mybatis-typehandlers-jsr310:1.0.2")
