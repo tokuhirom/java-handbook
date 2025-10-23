@@ -16,8 +16,8 @@ dependencies {
     implementation("com.fasterxml.jackson.core:jackson-core:2.20.0")
 
     testImplementation("org.assertj:assertj-core:3.27.6")
-    testImplementation("org.springframework.boot:spring-boot-starter-test:3.5.6") // TODO remove?
-    testImplementation("org.springframework.boot:spring-boot-starter-logging:3.5.6") // TODO remove?
+    testImplementation("org.springframework.boot:spring-boot-starter-test:3.5.7") // TODO remove?
+    testImplementation("org.springframework.boot:spring-boot-starter-logging:3.5.7") // TODO remove?
 
     testImplementation("org.junit.jupiter:junit-jupiter-api:6.0.0")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:6.0.0")
