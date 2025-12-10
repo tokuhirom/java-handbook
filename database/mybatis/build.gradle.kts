@@ -17,7 +17,7 @@ dependencies {
     implementation("org.mybatis.spring.boot:mybatis-spring-boot-starter:4.0.0")
     implementation("com.h2database:h2:2.4.240")
 
-    testImplementation("org.mockito:mockito-core:5.20.0")
+    testImplementation("org.mockito:mockito-core:5.21.0")
     testImplementation("org.assertj:assertj-core:3.27.6")
     testImplementation("org.junit.jupiter:junit-jupiter-api:6.0.1")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:6.0.1")
