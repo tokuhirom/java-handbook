@@ -17,7 +17,7 @@ dependencies {
 
     testImplementation("org.assertj:assertj-core:3.27.7")
     testImplementation("org.springframework.boot:spring-boot-starter-test:3.5.11") // TODO remove?
-    testImplementation("org.springframework.boot:spring-boot-starter-logging:3.5.11") // TODO remove?
+    testImplementation("org.springframework.boot:spring-boot-starter-logging:3.5.12") // TODO remove?
 
     testImplementation("org.junit.jupiter:junit-jupiter-api:6.0.3")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:6.0.3")
