@@ -8,8 +8,8 @@ dependencies {
     testCompileOnly("org.projectlombok:lombok:1.18.46")
     testAnnotationProcessor("org.projectlombok:lombok:1.18.46")
 
-    implementation("com.fasterxml.jackson.core:jackson-databind:2.21.2")
-    implementation("com.fasterxml.jackson.core:jackson-core:2.21.2")
+    implementation("com.fasterxml.jackson.core:jackson-databind:2.21.3")
+    implementation("com.fasterxml.jackson.core:jackson-core:2.21.3")
 
     testImplementation("org.assertj:assertj-core:3.27.7")
     testImplementation("org.junit.jupiter:junit-jupiter-api:6.0.3")
