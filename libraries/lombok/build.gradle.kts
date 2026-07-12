@@ -12,6 +12,6 @@ dependencies {
     implementation("com.fasterxml.jackson.core:jackson-core:2.22.1")
 
     testImplementation("org.assertj:assertj-core:3.27.7")
-    testImplementation("org.junit.jupiter:junit-jupiter-api:6.1.1")
-    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:6.1.1")
+    testImplementation("org.junit.jupiter:junit-jupiter-api:6.1.2")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:6.1.2")
 }
