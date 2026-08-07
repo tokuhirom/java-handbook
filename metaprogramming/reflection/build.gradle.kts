@@ -10,9 +10,9 @@ dependencies {
     testCompileOnly("org.projectlombok:lombok:1.18.46")
     testAnnotationProcessor("org.projectlombok:lombok:1.18.46")
 
-    testImplementation("org.junit.jupiter:junit-jupiter-api:6.1.2")
+    testImplementation("org.junit.jupiter:junit-jupiter-api:6.1.3")
     testImplementation("com.google.guava:guava:33.6.0-jre")
-    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:6.1.2")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:6.1.3")
 }
 
 tasks.compileJava {
