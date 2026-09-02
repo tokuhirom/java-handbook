@@ -7,8 +7,8 @@ repositories {
 }
 
 dependencies {
-    testCompileOnly("org.projectlombok:lombok:1.18.46")
-    testAnnotationProcessor("org.projectlombok:lombok:1.18.46")
+    testCompileOnly("org.projectlombok:lombok:1.18.48")
+    testAnnotationProcessor("org.projectlombok:lombok:1.18.48")
 
     testImplementation("org.junit.jupiter:junit-jupiter-api:6.1.3")
     testImplementation("com.google.guava:guava:33.7.1-jre")
